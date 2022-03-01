@@ -2,7 +2,7 @@
   "name": "flexnit-client",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.html",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/wtfoxx/flexnit-client.git"
   },
-  "author": "wtfoxx",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wtfoxx/flexnit-client/issues"
