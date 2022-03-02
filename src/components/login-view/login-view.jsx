@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import './login-view.scss'
 
 export function LoginView(props) {
+  
+
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
@@ -15,22 +17,28 @@ export function LoginView(props) {
     props.onLoggedIn(username);
   };
 
+  
+
   return (
-    //<div>
-      //<div className="register-button">
-       // <button type="button" onClick={LoginView}>Register</button>
-      //</div>
       <form>
         <label>
-          Usernamssse:
+          Username:
           <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
         </label>
         <label>
-          Passsssword:
+          Password:
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
-        <button type="submit" onClick={handleSubmit}>Submefeit</button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
+        <button type="button">Register</button>
       </form>
-    //</div>
   )
-}
+};
+
+LoginView.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+  }),
+  onLoggedIn: PropTypes.func.isRequired
+};
