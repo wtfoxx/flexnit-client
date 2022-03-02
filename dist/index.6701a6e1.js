@@ -959,7 +959,7 @@ _reactDomDefault.default.render(/*#__PURE__*/ _reactDefault.default.createElemen
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","react-dom":"gkWJK","./components/MainView/main-view":"4zHYU","./index.scss":"jUTZ8","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"6TuXu":[function(require,module,exports) {
+},{"react":"6TuXu","react-dom":"gkWJK","./index.scss":"jUTZ8","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","./components/MainView/main-view":"4zHYU"}],"6TuXu":[function(require,module,exports) {
 'use strict';
 module.exports = require('./cjs/react.development.js');
 
@@ -21910,118 +21910,7 @@ module.exports = require('./cjs/scheduler-tracing.development.js');
     exports.unstable_wrap = unstable_wrap;
 })();
 
-},{}],"4zHYU":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$beb1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$beb1.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MainView", ()=>MainView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _movieCard = require("../movie-card/movie-card");
-var _movieView = require("../movie-view/movie-view");
-class MainView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        this.state = {
-            movies: [
-                {
-                    _id: 1,
-                    Title: 'Inception',
-                    Description: 'Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people\'s dreams and steal their secrets from their subconscious. His skill has made him a hot commodity in the world of corporate espionage but has also cost him everything he loves. Cobb gets a chance at redemption when he is offered a seemingly impossible task: Plant an idea in someone\'s mind. If he succeeds, it will be the perfect crime, but a dangerous enemy anticipates Cobb\'s every move.',
-                    ImagePath: "...",
-                    Genre: 'Thriller',
-                    Director: 'Christopher Nolan'
-                },
-                {
-                    _id: 2,
-                    Title: 'The Shawshank Redemption',
-                    Description: 'Andy Dufresne (Tim Robbins) is sentenced to two consecutive life terms in prison for the murders of his wife and her lover and is sentenced to a tough prison. However, only Andy knows he didn\'t commit the crimes. While there, he forms a friendship with Red (Morgan Freeman), experiences brutality of prison life, adapts, helps the warden, etc., all in 19 years.',
-                    ImagePath: '...',
-                    Genre: 'Drama',
-                    Director: 'Frank Darabont'
-                },
-                {
-                    _id: 3,
-                    Title: 'Gladiator',
-                    Description: 'Set in Roman times, the story of a once-powerful general forced to become a common gladiator. The emperor\'s son is enraged when he is passed over as heir in favour of his father\'s favourite general. He kills his father and arranges the murder of the general\'s family, and the general is sold into slavery to be trained as a gladiator - but his subsequent popularity in the arena threatens the throne.',
-                    ImagePath: '...',
-                    Genre: 'Action',
-                    Director: 'David Franzoni'
-                }
-            ],
-            selectedMovie: null
-        };
-    }
-    setSelectedMovie(newSelectedMovie) {
-        this.setState({
-            selectedMovie: newSelectedMovie
-        });
-    }
-    render() {
-        const { movies , selectedMovie  } = this.state;
-        if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "main-view"
-        }, "The list is empty!"));
-        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "main-view"
-        }, selectedMovie ? /*#__PURE__*/ _reactDefault.default.createElement(_movieView.MovieView, {
-            movie: selectedMovie,
-            onBackClick: (newSelectedMovie)=>{
-                this.setSelectedMovie(newSelectedMovie);
-            }
-        }) : movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
-                key: movie._id,
-                movie: movie,
-                onMovieClick: (movie1)=>{
-                    this.setSelectedMovie(movie1);
-                }
-            })
-        )));
-    }
-}
-
-  $parcel$ReactRefreshHelpers$beb1.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"6EiBJ":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$4249.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-class MovieCard extends _reactDefault.default.Component {
-    render() {
-        const { movie , onMovieClick  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "movie-card",
-            onClick: ()=>{
-                onMovieClick(movie);
-            }
-        }, movie.Title));
-    }
-}
-
-  $parcel$ReactRefreshHelpers$4249.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"kYNDr":[function(require,module,exports) {
+},{}],"jUTZ8":[function() {},{}],"kYNDr":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -22173,7 +22062,118 @@ function registerExportsForReactRefresh(module) {
     }
 }
 
-},{"react-refresh/runtime":"4k08f"}],"ikZdr":[function(require,module,exports) {
+},{"react-refresh/runtime":"4k08f"}],"4zHYU":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$beb1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$beb1.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MainView", ()=>MainView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _movieCard = require("../movie-card/movie-card");
+var _movieView = require("../movie-view/movie-view");
+class MainView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        this.state = {
+            movies: [
+                {
+                    _id: 1,
+                    Title: 'Inception',
+                    Description: 'Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people\'s dreams and steal their secrets from their subconscious. His skill has made him a hot commodity in the world of corporate espionage but has also cost him everything he loves. Cobb gets a chance at redemption when he is offered a seemingly impossible task: Plant an idea in someone\'s mind. If he succeeds, it will be the perfect crime, but a dangerous enemy anticipates Cobb\'s every move.',
+                    ImagePath: "...",
+                    Genre: 'Thriller',
+                    Director: 'Christopher Nolan'
+                },
+                {
+                    _id: 2,
+                    Title: 'The Shawshank Redemption',
+                    Description: 'Andy Dufresne (Tim Robbins) is sentenced to two consecutive life terms in prison for the murders of his wife and her lover and is sentenced to a tough prison. However, only Andy knows he didn\'t commit the crimes. While there, he forms a friendship with Red (Morgan Freeman), experiences brutality of prison life, adapts, helps the warden, etc., all in 19 years.',
+                    ImagePath: '...',
+                    Genre: 'Drama',
+                    Director: 'Frank Darabont'
+                },
+                {
+                    _id: 3,
+                    Title: 'Gladiator',
+                    Description: 'Set in Roman times, the story of a once-powerful general forced to become a common gladiator. The emperor\'s son is enraged when he is passed over as heir in favour of his father\'s favourite general. He kills his father and arranges the murder of the general\'s family, and the general is sold into slavery to be trained as a gladiator - but his subsequent popularity in the arena threatens the throne.',
+                    ImagePath: '...',
+                    Genre: 'Action',
+                    Director: 'David Franzoni'
+                }
+            ],
+            selectedMovie: null
+        };
+    }
+    setSelectedMovie(newSelectedMovie) {
+        this.setState({
+            selectedMovie: newSelectedMovie
+        });
+    }
+    render() {
+        const { movies , selectedMovie  } = this.state;
+        if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "main-view"
+        }, "The list is empty!"));
+        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "main-view"
+        }, selectedMovie ? /*#__PURE__*/ _reactDefault.default.createElement(_movieView.MovieView, {
+            movie: selectedMovie,
+            onBackClick: (newSelectedMovie)=>{
+                this.setSelectedMovie(newSelectedMovie);
+            }
+        }) : movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
+                key: movie._id,
+                movie: movie,
+                onMovieClick: (movie1)=>{
+                    this.setSelectedMovie(movie1);
+                }
+            })
+        )));
+    }
+}
+
+  $parcel$ReactRefreshHelpers$beb1.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"6EiBJ":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$4249.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+class MovieCard extends _reactDefault.default.Component {
+    render() {
+        const { movie , onMovieClick  } = this.props;
+        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "movie-card",
+            onClick: ()=>{
+                onMovieClick(movie);
+            }
+        }, movie.Title));
+    }
+}
+
+  $parcel$ReactRefreshHelpers$4249.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"ikZdr":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3741 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -22232,6 +22232,6 @@ class MovieView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"jUTZ8":[function() {},{}]},["bOTOS","bc0Bq","dLPEP"], "dLPEP", "parcelRequirecbac")
+},{"react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}]},["bOTOS","bc0Bq","dLPEP"], "dLPEP", "parcelRequirecbac")
 
 //# sourceMappingURL=index.6701a6e1.js.map
