@@ -22140,7 +22140,7 @@ class MainView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"./main-view.scss":"jyMAr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","react":"6TuXu","axios":"iYoWk","../login-view/login-view":"054li","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"jyMAr":[function() {},{}],"iYoWk":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","./main-view.scss":"jyMAr","../login-view/login-view":"054li","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"iYoWk":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 
 },{"./lib/axios":"3QmO2"}],"3QmO2":[function(require,module,exports) {
@@ -23699,7 +23699,7 @@ var utils = require('./../utils');
     return utils.isObject(payload) && payload.isAxiosError === true;
 };
 
-},{"./../utils":"hOPY0"}],"054li":[function(require,module,exports) {
+},{"./../utils":"hOPY0"}],"jyMAr":[function() {},{}],"054li":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$02dd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
