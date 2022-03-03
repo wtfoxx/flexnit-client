@@ -44,9 +44,8 @@ RegistrationView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    email: ProtoTypes.string.isRequired,
-    birthday: ProtoTypes.string.isRequired
+    email: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired
   }),
   onRegistration: PropTypes.func.isRequired
-  })
-}
+  }
