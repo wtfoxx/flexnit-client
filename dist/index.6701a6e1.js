@@ -24515,7 +24515,7 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _movieViewScss = require("./movie-view.scss"); //let imgPath = './pics/'
+var _movieViewScss = require("./movie-view.scss");
 var _pics = require("../../../pics");
 var _picsDefault = parcelHelpers.interopDefault(_pics);
 class MovieView extends _reactDefault.default.Component {

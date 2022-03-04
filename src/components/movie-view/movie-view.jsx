@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import './movie-view.scss'
 
-//let imgPath = './pics/'
 import images from '../../../pics';
 
 export class MovieView extends React.Component {
