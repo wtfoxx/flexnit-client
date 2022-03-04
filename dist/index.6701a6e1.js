@@ -23743,10 +23743,6 @@ function LoginView(props) {
 _s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
 _c = LoginView;
 LoginView.propTypes = {
-    user: _propTypesDefault.default.shape({
-        username: _propTypesDefault.default.string.isRequired,
-        password: _propTypesDefault.default.string.isRequired
-    }),
     onLoggedIn: _propTypesDefault.default.func.isRequired
 };
 var _c;
@@ -24519,7 +24515,7 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _movieViewScss = require("./movie-view.scss");
+var _movieViewScss = require("./movie-view.scss"); //let img = '../../../pics/'
 class MovieView extends _reactDefault.default.Component {
     render() {
         const { movie , onBackClick  } = this.props;
@@ -24528,8 +24524,7 @@ class MovieView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "movie-poster"
         }, /*#__PURE__*/ _reactDefault.default.createElement("img", {
-            className: "movie-poster",
-            src: movie.ImagePath
+            src: require('../../../pics/' + movie.ImagePath)
         })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "movie-title"
         }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
