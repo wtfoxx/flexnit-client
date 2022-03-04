@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import './movie-view.scss'
 
-//let img = '../../../pics/'
+//let imgPath = './pics/'
+import images from '../../../pics';
 
 export class MovieView extends React.Component {
 
@@ -13,7 +14,7 @@ export class MovieView extends React.Component {
     return (
       <div className="movie-view">
         <div className="movie-poster">
-          <img src={require('../../../pics/' + movie.ImagePath)} />
+          <img src={images[movie.ImagePath]} />
         </div>
 
         <div className="movie-title">

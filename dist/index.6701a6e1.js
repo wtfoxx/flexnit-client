@@ -24515,7 +24515,9 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _movieViewScss = require("./movie-view.scss"); //let img = '../../../pics/'
+var _movieViewScss = require("./movie-view.scss"); //let imgPath = './pics/'
+var _pics = require("../../../pics");
+var _picsDefault = parcelHelpers.interopDefault(_pics);
 class MovieView extends _reactDefault.default.Component {
     render() {
         const { movie , onBackClick  } = this.props;
@@ -24524,7 +24526,7 @@ class MovieView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "movie-poster"
         }, /*#__PURE__*/ _reactDefault.default.createElement("img", {
-            src: require('../../../pics/' + movie.ImagePath)
+            src: _picsDefault.default[movie.ImagePath]
         })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "movie-title"
         }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
@@ -24591,6 +24593,88 @@ MovieView.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","./movie-view.scss":"kvL93","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"kvL93":[function() {},{}]},["bOTOS","bc0Bq","dLPEP"], "dLPEP", "parcelRequirecbac")
+},{"react":"6TuXu","prop-types":"1tgq3","./movie-view.scss":"kvL93","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","../../../pics":"fKJ9w"}],"kvL93":[function() {},{}],"fKJ9w":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const images = {
+    "bee.png": require("./bee.png"),
+    "ince.jpg": require("./ince.jpg"),
+    "lotr1.jpg": require("./lotr1.jpg"),
+    "lotr2.jpg": require("./lotr2.jpg"),
+    "lotr3.jpg": require("./lotr3.jpg"),
+    "matrix.jpg": require("./matrix.jpg"),
+    "mean.jpg": require("./mean.jpg"),
+    "memento.jpg": require("./memento.jpg"),
+    "silence.jpg": require("./silence.jpg"),
+    "inter.jpg": require("./inter.jpg")
+};
+exports.default = images;
+
+},{"./bee.png":"21wBd","./ince.jpg":"j9Dhk","./lotr1.jpg":"4lldS","./lotr2.jpg":"8Xc58","./lotr3.jpg":"fm1NC","./matrix.jpg":"heuzU","./mean.jpg":"aBQeK","./memento.jpg":"fV6Z6","./silence.jpg":"1e2e7","./inter.jpg":"dIo5P","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr"}],"21wBd":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "bee.fd9b3a36.png";
+
+},{"./helpers/bundle-url":"lxXXL"}],"lxXXL":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"j9Dhk":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "ince.c8dc01d4.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"4lldS":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "lotr1.8740e272.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"8Xc58":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "lotr2.f0997744.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"fm1NC":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "lotr3.397c8791.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"heuzU":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "matrix.fd277fec.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"aBQeK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "mean.07e6c729.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"fV6Z6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "memento.95d0b22c.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"1e2e7":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "silence.16f1f490.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}],"dIo5P":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "inter.2e3bb8eb.jpg";
+
+},{"./helpers/bundle-url":"lxXXL"}]},["bOTOS","bc0Bq","dLPEP"], "dLPEP", "parcelRequirecbac")
 
 //# sourceMappingURL=index.6701a6e1.js.map
