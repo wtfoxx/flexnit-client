@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import './main-view.scss'
 
@@ -45,20 +47,32 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user } = this.state;
 
-    if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+    if(!user) return (
+      <Row className="justify-content-md-center">
+        <Col lg={3}>
+          <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+        </Col>
+      </Row>
+    );
 
     if (movies.length === 0) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
+      <Row className="justify-content-md-center">
         {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
-          ))
+          ? (
+            <Col md={8}>
+              <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+            </Col>
           
+          )
+          : movies.map(movie => (
+            <Col md={3}>
+              <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
+            </Col>
+          ))
         }
-      </div>
+      </Row>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 import './movie-view.scss'
-
-import images from '../../../pics';
 
 export class MovieView extends React.Component {
 
@@ -11,42 +11,23 @@ export class MovieView extends React.Component {
     const { movie, onBackClick } = this.props;
 
     return (
-      <div className="movie-view">
-        <div className="movie-poster">
-          <img src={images[movie.ImagePath]} />
-        </div>
+      <Card>
+        <Card.Img variant="top" src={movie.ImagePath} />
 
-        <div className="movie-title">
-          <span className="value">{movie.Title}</span>
-        </div>
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
 
-        <div className="movie-director-name">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <div className="movie-director-bio">
-          <span className="label">Bio: </span>
-          <span className="value">{movie.Director.Bio}</span>
-        </div>
-        <div className="movie-director-birth">
-          <span className="label">Birth: </span>
-          <span className="value">{movie.Director.Birth}</span>
-        </div>
+          <Card.Subtitle className="mb-2 text-muted">{movie.Year} • {movie.Genre.Name}</Card.Subtitle>
 
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-        </div>
+          <Card.Text>{movie.Director.Name}</Card.Text>
 
-        <div className="movie-year">
-          <span className="label">Year: </span>
-          <span className="value">{movie.Year}</span>
-        </div>
+          <Card.Text>{movie.Description}</Card.Text>
 
-
-        <button onClick={() => { onBackClick(null); }}>Back</button>
-        
-      </div>
+          <Button variant="primary" type="button" onClick={() => { onBackClick(null); }}>
+            Back
+          </Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
