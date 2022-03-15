@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { Link } from 'react-router-dom';
 
 import './movie-view.scss'
 
 export class MovieView extends React.Component {
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movie } = this.props;
 
     return (
       <Card>
@@ -17,15 +18,29 @@ export class MovieView extends React.Component {
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
 
-          <Card.Subtitle className="mb-2 text-muted">{movie.Year} • {movie.Genre.Name}</Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">{movie.Year} 
+          
+          {' '} • {' '}
 
-          <Card.Text>{movie.Director.Name}</Card.Text>
+          <Link to ={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">{movie.Genre.Name}</Button>
+          </Link> 
+          
+         {' '} • {' '}
+
+          <Link to ={`/director/${movie.Director.Name}`}>
+            <Button variant="link">{movie.Director.Name}</Button>
+          </Link>
+
+          </Card.Subtitle>
 
           <Card.Text>{movie.Description}</Card.Text>
 
-          <Button variant="primary" type="button" onClick={() => { onBackClick(null); }}>
-            Back
-          </Button>
+          <Link to={`/`}>
+            <Button variant="primary" type="button">
+              Back
+            </Button>
+          </Link>
         </Card.Body>
       </Card>
     );
