@@ -22137,9 +22137,9 @@ class MainView extends _reactDefault.default.Component {
                 this.setSelectedMovie(newSelectedMovie);
             }
         })) : movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
-                md: 3
+                md: 3,
+                key: movie._id
             }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
-                key: movie._id.toString(),
                 movie: movie,
                 onMovieClick: (movie1)=>{
                     this.setSelectedMovie(movie1);
