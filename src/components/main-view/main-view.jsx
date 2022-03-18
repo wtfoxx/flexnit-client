@@ -1,17 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import './main-view.scss'
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col, Container } from 'react-bootstrap';
+
+import { Navigation } from '../navbar/navbar';
+import { RegistrationView } from '../registration-view/registration-view';
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
 
 
 export class MainView extends React.Component {
@@ -69,23 +72,44 @@ export class MainView extends React.Component {
   }
 
   render() {
+    const { movies, user } = this.state;
+
+    const MainWrapper = () => {
+      if (!user) return (
+        <Col md={3}>
+          <LoginView movies={movies} onLoggedIn={user => this.onLoggedIn(user)} />
+        </Col>
+      );
+
+      if (movies.length === 0) return <div className="main-view" />;
+      
+      return (
+        movies.map(m => (
+          <Col lg={4} md="auto" key={m._id}>
+            <MovieCard movie={m} />
+          </Col>
+
+      ))  
+      );
+      
+    };
+
+    const RegisterWrapper = () => {
+      if (user) return <Redirect to="/" />
+      return (
+          <Col lg={3}>
+            <RegistrationView />
+          </Col>
+      );
+    }
+
     const MovieWrapper = () => {
       const { movieId } = useParams();
 
       return (
-        <Col md={8}>
-          <MovieView movie={movies.find(m => m._id === movieId)} />
-        </Col>
-      );
-    };
-
-    const GenreWrapper = () => {
-      const { name } = useParams();
-
-      return (
-        <Col md={8}>
-          <GenreView genre={movies.find(m => m.Genre.Name === name).Genre} />
-        </Col>
+          <Col lg={6} md="auto">
+            <MovieView movie={movies.find(m => m._id === movieId)} />
+          </Col>
       );
     };
 
@@ -93,39 +117,64 @@ export class MainView extends React.Component {
       const { name } = useParams();
 
       return (
+          <Col md={4}>
+            <DirectorView director={movies.find(m => m.Director.Name === name).Director} />
+          </Col>
+      );
+    };
+
+    const GenreWrapper = () => {
+      const { Id } = useParams();
+
+      return (
+          <Col md={4}>
+            <GenreView genre={movies.find(m => m.Genre.Name === Id).Genre} />
+          </Col>
+      );
+    };
+
+    const ProfileWrapper = () => {
+      if (!user) return <Redirect to="/" />
+      return (
+          <Col md={8}>
+            <ProfileView movies={movies} user={user} />
+          </Col>
+      );
+    };
+
+    const UpdateWrapper = () => {
+      if (!user) return <Redirect to="/" />
+      return (
         <Col md={8}>
-          <DirectorView director={movies.find(m => m.Director.Name === name).Director} />
+          <UserUpdate user={user} />
         </Col>
       );
     };
 
-    const { movies, user } = this.state;
-
-    if (!user) return <Row>
-      <Col>
-        <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-      </Col>
-    </Row>
-    if (movies.length === 0) return <div className="main-view" />;
-
     return (
       <Router>
-        <Button variant="outline-primary" size="sm" onClick={() => { this.onLoggedOut() }}>Logout</Button>
-        <Row className="main-view justify-content-md-center">
-          <Routes>
-            <Route exact path="/" element={
-               movies.map(m => (
-                <Col md={3} key={m._id}>
-                  <MovieCard movie={m} />
-                </Col>
-               ))
-               } />
-            <Route path="/movies/:movieId" element={<MovieWrapper />} />
-            <Route path="/genres/:name" element={<GenreWrapper />} />
-            <Route path="/directors/:name" element={<DirectorWrapper />} />
-          </Routes>
+        <Navigation user={user} />
+        <p></p>
+          <Row className="main-view justify-content-md-center">
+            <Routes>
 
-        </Row>
+              <Route exact path="/" element={<MainWrapper />} />
+
+              <Route path="/register" element={<RegisterWrapper />} />
+
+              <Route path="/movies/:movieId" element={<MovieWrapper />} />
+
+              <Route path="/genres/:Id" element={<GenreWrapper />} />
+
+              <Route path="/director/:name" element={<DirectorWrapper />} />
+
+              <Route path="/users/:user" element={<ProfileWrapper />} />
+
+              <Route path="/users-update/:user" element={<UpdateWrapper />} />
+            
+            </Routes>
+
+          </Row>
       </Router>
     );
   }

@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import { Link } from 'react-router-dom';
 
 import './movie-view.scss'
+import { Container } from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 
@@ -12,37 +13,39 @@ export class MovieView extends React.Component {
     const { movie } = this.props;
 
     return (
-      <Card>
-        <Card.Img variant="top" src={movie.ImagePath} />
+      <Container>
+        <Card>
+          <Card.Img variant="top" src={movie.ImagePath} />
 
-        <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Body>
+            <Card.Title>{movie.Title}</Card.Title>
 
-          <Card.Subtitle className="mb-2 text-muted">{movie.Year} 
-          
+            <Card.Subtitle className="mb-2 text-muted">{movie.Year} 
+            
+            {' '} • {' '}
+
+            <Link to ={`/genres/${movie.Genre.Name}`}>
+              <Button variant="link">{movie.Genre.Name}</Button>
+            </Link> 
+            
           {' '} • {' '}
 
-          <Link to ={`/genres/${movie.Genre.Name}`}>
-            <Button variant="link">{movie.Genre.Name}</Button>
-          </Link> 
-          
-         {' '} • {' '}
+            <Link to ={`/director/${movie.Director.Name}`}>
+              <Button variant="link">{movie.Director.Name}</Button>
+            </Link>
 
-          <Link to ={`/director/${movie.Director.Name}`}>
-            <Button variant="link">{movie.Director.Name}</Button>
-          </Link>
+            </Card.Subtitle>
 
-          </Card.Subtitle>
+            <Card.Text>{movie.Description}</Card.Text>
 
-          <Card.Text>{movie.Description}</Card.Text>
-
-          <Link to={`/`}>
-            <Button variant="primary" type="button">
-              Back
-            </Button>
-          </Link>
-        </Card.Body>
-      </Card>
+            <Link to="/">
+              <Button variant="primary" type="button">
+                Back
+              </Button>
+            </Link>
+          </Card.Body>
+        </Card>
+      </Container>
     );
   }
 }

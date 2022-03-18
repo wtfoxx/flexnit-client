@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import { RegistrationView } from "../registration-view/registration-view";
+import { Link } from "react-router-dom";
 
 import './login-view.scss'
+import { RegistrationView } from "../registration-view/registration-view";
+import { Card, Container } from "react-bootstrap";
 
 export function LoginView(props) {
 
@@ -34,10 +36,6 @@ export function LoginView(props) {
 
     return isReq;
   };
-
-  const handleRegister = () => {
-    RegistrationView();
-  }
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,32 +59,40 @@ export function LoginView(props) {
   
 
   return (
-      <Form>
-        <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername (e.target.value)} />
-          <Form.Text className="text-muted">
-          {usernameErr && <p>{usernameErr}</p>}
-          </Form.Text>
-        </Form.Group>
+    <Container>
+      <Card>
+        <Card.Body>
+          <Card.Title>Login</Card.Title>
+          <Form>
+            <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername (e.target.value)} />
+              <Form.Text className="text-muted">
+              {usernameErr && <p>{usernameErr}</p>}
+              </Form.Text>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-          <Form.Text className="text-muted">
-            {passwordErr && <p>{passwordErr}</p>}
-          </Form.Text>
-        </Form.Group>
-        
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-        {' '}
-        <Button variant="secondary" onClick={handleRegister}>
-          Register
-        </Button>
-      </Form>
-
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              <Form.Text className="text-muted">
+                {passwordErr && <p>{passwordErr}</p>}
+              </Form.Text>
+            </Form.Group>
+            
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
+            {' '}
+            <Link to={`/register`}>
+              <Button variant="secondary">
+                Register
+              </Button>
+            </Link>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   )
 };
 

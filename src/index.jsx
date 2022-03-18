@@ -10,9 +10,9 @@ import './index.scss';
 class flexnitApplication extends React.Component {
   render() {
     return (
-      <Container>
+    
         <MainView />
-      </Container>
+
     );
   }
 }
