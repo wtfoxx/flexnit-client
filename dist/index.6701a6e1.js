@@ -26356,7 +26356,7 @@ function RegistrationView(props) {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const isReq = validate();
-        if (isReq) _axiosDefault.default.post('https://orishflix.herokuapp.com/users', {
+        if (isReq) _axiosDefault.default.post('https://flexnitdb.herokuapp.com/users', {
             Username: username,
             Password: password,
             Email: email,
@@ -26388,8 +26388,8 @@ function RegistrationView(props) {
         value: password,
         onChange: (e)=>setPassword(e.target.value)
         ,
-        minLength: "8",
-        placeholder: "Must be at least 8 characters long"
+        minLength: "6",
+        placeholder: "Must be at least 6 characters long"
     }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Text, {
         className: "text-muted"
     }, passwordErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, passwordErr))), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {

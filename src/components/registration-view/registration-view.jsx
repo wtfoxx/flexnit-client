@@ -46,7 +46,7 @@ export function RegistrationView(props) {
     e.preventDefault();
     const isReq = validate();
     if(isReq) {
-      axios.post('https://orishflix.herokuapp.com/users', {
+      axios.post('https://flexnitdb.herokuapp.com/users', {
         Username: username,
         Password: password,
         Email: email,
@@ -82,7 +82,7 @@ export function RegistrationView(props) {
 
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} minLength="8" placeholder="Must be at least 8 characters long" />
+              <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} minLength="6" placeholder="Must be at least 6 characters long" />
               <Form.Text className="text-muted">  
                 {passwordErr && <p>{passwordErr}</p>}
               </Form.Text>
