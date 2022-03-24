@@ -16,7 +16,7 @@ export class FavoritesView extends React.Component {
         Password: null,
         Email: null,
         Birthday: null,
-        FavoriteMovies: [],
+        Favorites: [],
     };
   }
 
@@ -93,7 +93,7 @@ export class FavoritesView extends React.Component {
         <br />
           
           <Col>
-            <Row>
+            <Row className='justify-content-center'>
               <h4>Your favorites</h4>
             </Row>
 
@@ -102,7 +102,7 @@ export class FavoritesView extends React.Component {
                 {Favorites.length === 0 && (
                   <div className="text-center">No favorites yet :(</div>
                 )}
-                <Row>
+                <Row className='justify-content-center'>
                   {Favorites.length > 0 &&
                     movies.map((movie) => {
                       if (
@@ -112,7 +112,7 @@ export class FavoritesView extends React.Component {
                         <Col lg={3} md={4} sm={6} key={movie._id}>
                           <CardGroup>
                             <Card>
-                              <Card.Img class="img" variant="top" src={movie.ImagePath} />
+                              <Card.Img className="img" variant="top" src={movie.ImagePath} />
                               <Card.Body>
                                 <Card.Subtitle className="mb-2">
                                     {movie.Title}

@@ -22105,7 +22105,6 @@ class MainView extends _reactDefault.default.Component {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            //Assing the result to the state
             this.setState({
                 movies: response.data
             });
@@ -22143,7 +22142,7 @@ class MainView extends _reactDefault.default.Component {
         const { movies , user  } = this.state;
         const MainWrapper = ()=>{
             if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 12
+                md: 3
             }, /*#__PURE__*/ _reactDefault.default.createElement(_loginView.LoginView, {
                 movies: movies,
                 onLoggedIn: (user1)=>this.onLoggedIn(user1)
@@ -22192,10 +22191,11 @@ class MainView extends _reactDefault.default.Component {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 4
+                md: "auto"
             }, /*#__PURE__*/ _reactDefault.default.createElement(_directorView.DirectorView, {
                 director: movies.find((m)=>m.Director.Name === name
                 ).Director,
+                movies: movies,
                 onBackClick: ()=>history.back()
             })));
         };
@@ -22209,10 +22209,11 @@ class MainView extends _reactDefault.default.Component {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 4
+                md: "auto"
             }, /*#__PURE__*/ _reactDefault.default.createElement(_genreView.GenreView, {
                 genre: movies.find((m)=>m.Genre.Name === Id
                 ).Genre,
+                movies: movies,
                 onBackClick: ()=>history.back()
             })));
         };
@@ -22228,16 +22229,6 @@ class MainView extends _reactDefault.default.Component {
             }, /*#__PURE__*/ _reactDefault.default.createElement(_profileView.ProfileView, {
                 movies: movies,
                 onBackClick: ()=>history.back()
-            })));
-        };
-        const UpdateWrapper = ()=>{
-            if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-                className: "main-view"
-            }));
-            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 8
-            }, /*#__PURE__*/ _reactDefault.default.createElement(UserUpdate, {
-                user: user
             })));
         };
         const FavoritesWrapper = ()=>{
@@ -22272,9 +22263,6 @@ class MainView extends _reactDefault.default.Component {
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
             path: "/users/:user",
             element: /*#__PURE__*/ _reactDefault.default.createElement(ProfileWrapper, null)
-        }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
-            path: "/users-update/:user",
-            element: /*#__PURE__*/ _reactDefault.default.createElement(UpdateWrapper, null)
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
             path: "/users/:user/movies",
             element: /*#__PURE__*/ _reactDefault.default.createElement(FavoritesWrapper, null)
@@ -23906,6 +23894,7 @@ function LoginView(props) {
             const data = response.data;
             props.onLoggedIn(data);
         }).catch((e1)=>{
+            alert('User does not exist.');
             console.log('User does not exist.');
         });
     };
@@ -39260,7 +39249,6 @@ class MovieCard extends _reactDefault.default.Component {
             className: "mb-5"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
             variant: "top",
-            class: "cardimg",
             src: movie.ImagePath
         }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/movies/${movie._id}`
@@ -39386,14 +39374,16 @@ class MovieView extends _reactDefault.default.Component {
             variant: "top",
             src: movie.ImagePath
         })))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Subtitle, {
-            className: "mb-2 text-muted"
+            className: "text-muted"
         }, movie.Year, ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/genres/${movie.Genre.Name}`
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            size: "sm",
             variant: "link"
         }, movie.Genre.Name)), ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/director/${movie.Director.Name}`
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            size: "sm",
             variant: "link"
         }, movie.Director.Name))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             variant: "primary",
@@ -39504,23 +39494,87 @@ parcelHelpers.export(exports, "GenreView", ()=>GenreView
 );
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactRouterDom = require("react-router-dom");
 var _genreViewScss = require("./genre-view.scss");
 var _reactBootstrap = require("react-bootstrap");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
 class GenreView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "getGenre", (token, genre)=>{
+            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/genres/${genre.Name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                this.setState({
+                    movies: response.data
+                });
+                console.log(response.data);
+                console.log(genre.Name);
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        this.state = {
+            movies: []
+        };
+    }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        let { genre  } = this.props;
+        if (accessToken !== null) this.getGenre(accessToken, genre);
+    }
     render() {
         const { genre , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
-            fluid: "lg"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, null, genre.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+        const { movies  } = this.state;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            lg: 8,
+            md: 12
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            md: 1
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            className: "mb-4"
+        }, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
+            className: "mb-3"
+        }, genre.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
             onClick: ()=>{
                 onBackClick();
             }
-        }, "Back")))));
+        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "mt-5 justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, genre.Name, " movies")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "text-center"
+        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, movies.length > 0 && movies.map((movie)=>{
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+                lg: 3,
+                md: 4,
+                sm: 12,
+                key: movie._id
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+                to: `/movies/${movie._id}`
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
+                variant: "top",
+                src: movie.ImagePath
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+        })))))));
     }
 }
 
@@ -39547,16 +39601,84 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactRouterDom = require("react-router-dom");
 var _directorViewScss = require("./director-view.scss");
 var _reactBootstrap = require("react-bootstrap");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
 class DirectorView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "getDirector", (token, director)=>{
+            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/directors/${director.Name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                this.setState({
+                    movies: response.data
+                });
+                console.log(response.data);
+                console.log(director.Name);
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        this.state = {
+            movies: []
+        };
+    }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        let { director  } = this.props;
+        if (accessToken !== null) this.getDirector(accessToken, director);
+    }
     render() {
         const { director , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
-            fluid: "lg"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, director.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, null, director.Bio), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+        const { movies  } = this.state;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            lg: 8,
+            md: 12
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            md: 1
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            className: "mb-4"
+        }, director.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+            className: "mb-3"
+        }, director.Birth), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
+            className: "mb-3"
+        }, director.Bio), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
             onClick: ()=>{
                 onBackClick();
             }
-        }, "Back")))));
+        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "mt-5 justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Movies by ", director.Name)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "text-center"
+        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, movies.length > 0 && movies.map((movie)=>{
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+                lg: 3,
+                md: 4,
+                sm: 12,
+                key: movie._id
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+                to: `/movies/${movie._id}`
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
+                variant: "top",
+                src: movie.ImagePath
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+        })))))));
     }
 }
 
@@ -39565,7 +39687,7 @@ class DirectorView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./director-view.scss":"hWS1b","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./director-view.scss":"hWS1b","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","axios":"iYoWk"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$58c6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -39664,7 +39786,7 @@ class ProfileView extends _reactDefault.default.Component {
             Password: null,
             Email: null,
             Birthday: null,
-            FavoriteMovies: []
+            Favorites: []
         };
     }
     componentDidMount() {
@@ -39724,7 +39846,7 @@ class ProfileView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "backButton"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            variant: "primary",
+            variant: "outline-primary",
             onClick: ()=>{
                 onBackClick(null);
             }
@@ -39773,9 +39895,9 @@ class ProfileView extends _reactDefault.default.Component {
             variant: "success",
             type: "submit",
             onClick: this.editUser
-        }, "Update User"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+        }, "Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
             className: "ml-3",
-            variant: "secondary",
+            variant: "danger",
             onClick: ()=>this.onDeleteUser()
         }, "Delete User")))))));
     }
@@ -39875,7 +39997,7 @@ class FavoritesView extends _reactDefault.default.Component {
             Password: null,
             Email: null,
             Birthday: null,
-            FavoriteMovies: []
+            Favorites: []
         };
     }
     componentDidMount() {
@@ -39901,9 +40023,13 @@ class FavoritesView extends _reactDefault.default.Component {
             onClick: ()=>{
                 onBackClick(null);
             }
-        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "text-center"
-        }, "No favorites yet :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, Favorites.length > 0 && movies.map((movie)=>{
+        }, "No favorites yet :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, Favorites.length > 0 && movies.map((movie)=>{
             if (movie._id === Favorites.find((fav)=>fav === movie._id
             )) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
                 lg: 3,
@@ -39911,7 +40037,7 @@ class FavoritesView extends _reactDefault.default.Component {
                 sm: 6,
                 key: movie._id
             }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
-                class: "img",
+                className: "img",
                 variant: "top",
                 src: movie.ImagePath
             }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {

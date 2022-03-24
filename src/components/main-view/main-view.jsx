@@ -23,10 +23,10 @@ export class MainView extends React.Component {
 
   constructor(){
     super();
-    this.state = {
-      movies: [],
-      user: null
-    };
+      this.state = {
+        movies: [],
+        user: null
+      };
   }
 
   getMovies(token){
@@ -34,7 +34,6 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
-      //Assing the result to the state
       this.setState({
         movies: response.data
       });
@@ -78,7 +77,7 @@ export class MainView extends React.Component {
 
     const MainWrapper = () => {
       if (!user) return (
-        <Col md={12}>
+        <Col md={3}>
           <LoginView movies={movies} onLoggedIn={user => this.onLoggedIn(user)} />
         </Col>
       );
@@ -123,8 +122,8 @@ export class MainView extends React.Component {
       if (movies.length === 0) return <div className="main-view" />;
 
       return (
-          <Col md={4}>
-            <DirectorView director={movies.find(m => m.Director.Name === name).Director} onBackClick={() => history.back()} />
+          <Col md="auto">
+            <DirectorView director={movies.find(m => m.Director.Name === name).Director} movies={movies} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -135,8 +134,8 @@ export class MainView extends React.Component {
       if (movies.length === 0) return <div className="main-view" />;
 
       return (
-          <Col md={4}>
-            <GenreView genre={movies.find(m => m.Genre.Name === Id).Genre} onBackClick={() => history.back()} />
+          <Col md="auto">
+            <GenreView genre={movies.find(m => m.Genre.Name === Id).Genre} movies={movies} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -150,14 +149,6 @@ export class MainView extends React.Component {
       );
     };
 
-    const UpdateWrapper = () => {
-      if (!user) return <div className="main-view" />;
-      return (
-        <Col md={8}>
-          <UserUpdate user={user} />
-        </Col>
-      );
-    };
 
     const FavoritesWrapper = () => {
       if (!user) return <div className="main-view" />;
@@ -186,8 +177,6 @@ export class MainView extends React.Component {
               <Route path="/director/:name" element={<DirectorWrapper />} />
 
               <Route path="/users/:user" element={<ProfileWrapper />} />
-
-              <Route path="/users-update/:user" element={<UpdateWrapper />} />
             
               <Route path="/users/:user/movies" element={<FavoritesWrapper />} />
             </Routes>

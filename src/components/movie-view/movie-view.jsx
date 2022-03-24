@@ -104,18 +104,18 @@ export class MovieView extends React.Component {
               <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
 
-                <Card.Subtitle className="mb-2 text-muted">{movie.Year} 
+                <Card.Subtitle className="text-muted">{movie.Year} 
                 
                 {' '} • {' '}
 
                 <Link to ={`/genres/${movie.Genre.Name}`}>
-                  <Button variant="link">{movie.Genre.Name}</Button>
+                  <Button size='sm' variant='link'>{movie.Genre.Name}</Button>
                 </Link> 
                 
                 {' '} • {' '}
 
                 <Link to ={`/director/${movie.Director.Name}`}>
-                  <Button variant="link">{movie.Director.Name}</Button>
+                  <Button size='sm' variant='link'>{movie.Director.Name}</Button>
                 </Link>
 
                 </Card.Subtitle>

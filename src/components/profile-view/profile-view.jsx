@@ -16,7 +16,7 @@ export class ProfileView extends React.Component {
         Password: null,
         Email: null,
         Birthday: null,
-        FavoriteMovies: [],
+        Favorites: [],
     };
   }
 
@@ -167,7 +167,7 @@ export class ProfileView extends React.Component {
     return (
       <Container> 
         <div className="backButton">
-          <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+          <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
         </div>
         <br />
         <Card>
@@ -230,8 +230,8 @@ export class ProfileView extends React.Component {
                 />
               </Form.Group>
               <div className="mt-3">
-                <Button variant="success" type="submit" onClick={this.editUser}>Update User</Button>
-                <Button className="ml-3" variant="secondary" onClick={() => this.onDeleteUser()}>Delete User</Button>
+                <Button variant="success" type="submit" onClick={this.editUser}>Update</Button>
+                <Button className="ml-3" variant="danger" onClick={() => this.onDeleteUser()}>Delete User</Button>
               </div>
             </Form>
               </Card.Body>

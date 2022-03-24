@@ -51,7 +51,8 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log('User does not exist.')
+        alert('User does not exist.');
+        console.log('User does not exist.');
       });
     }
   };
