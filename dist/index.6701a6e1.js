@@ -22225,7 +22225,8 @@ class MainView extends _reactDefault.default.Component {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 3
+                md: 6,
+                lg: 4
             }, /*#__PURE__*/ _reactDefault.default.createElement(_profileView.ProfileView, {
                 movies: movies,
                 onBackClick: ()=>history.back()

@@ -84,16 +84,16 @@ export class GenreView extends React.Component {
                         return (
                           <Col lg={3} md={4} sm={12} key={movie._id}>
                             <CardGroup>
-                            <Link to={`/movies/${movie._id}`}>
-                              <Card>
-                                <Card.Img variant="top" src={movie.ImagePath} />
-                                <Card.Body>
-                                  <Card.Subtitle>
-                                      {movie.Title}
-                                  </Card.Subtitle>
-                                </Card.Body>
-                              </Card>
-                            </Link>
+                              <Link to={`/movies/${movie._id}`}>
+                                <Card>
+                                  <Card.Img variant="top" src={movie.ImagePath} />
+                                  <Card.Body>
+                                    <Card.Subtitle>
+                                        {movie.Title}
+                                    </Card.Subtitle>
+                                  </Card.Body>
+                                </Card>
+                              </Link>
                             </CardGroup>
                           </Col>
                         );

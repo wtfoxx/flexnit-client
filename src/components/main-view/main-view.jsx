@@ -143,7 +143,7 @@ export class MainView extends React.Component {
     const ProfileWrapper = () => {
       if (!user) return <div className="main-view" />;
       return (
-          <Col md={3}>
+          <Col md={6} lg={4}>
             <ProfileView movies={movies} onBackClick={() => history.back()} />
           </Col>
       );
