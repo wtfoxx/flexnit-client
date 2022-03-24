@@ -7,7 +7,7 @@ import { Container, Button, Card } from 'react-bootstrap';
 export class DirectorView extends React.Component {
 
   render() {
-    const { director } = this.props;
+    const { director, onBackClick } = this.props;
 
     return (
       <Container fluid="lg">
@@ -15,9 +15,7 @@ export class DirectorView extends React.Component {
           <Card.Body>
             <Card.Title>{director.Name}</Card.Title>
             <Card.Text>{director.Bio}</Card.Text>
-            <Link to={`/`}>
-              <Button>Back</Button>
-            </Link>
+            <Button onClick={() => { onBackClick(); }}>Back</Button>
           </Card.Body>
         </Card>
       </Container>

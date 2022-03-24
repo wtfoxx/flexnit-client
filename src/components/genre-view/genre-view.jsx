@@ -8,7 +8,7 @@ import { Container, Button, Card } from 'react-bootstrap';
 export class GenreView extends React.Component {
 
   render() {
-    const { genre } = this.props;
+    const { genre, onBackClick } = this.props;
 
     return (
       <Container fluid="lg">
@@ -16,9 +16,7 @@ export class GenreView extends React.Component {
           <Card.Body>
             <Card.Title>{genre.Name}</Card.Title>
             <Card.Text>{genre.Description}</Card.Text>
-            <Link to={`/`}>
-              <Button>Back</Button>
-            </Link>
+            <Button onClick={() => { onBackClick(); }}>Back</Button>
           </Card.Body>
         </Card>
       </Container>

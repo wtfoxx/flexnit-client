@@ -28,10 +28,16 @@ export function Navigation({user}) {
             {isAuth() && (
               <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
             )}
+
+            
+            {isAuth() && (
+              <Nav.Link href={`/users/${user}/movies`}>Favorites</Nav.Link>
+            )}
             
             {isAuth() && (
               <Nav.Link variant="link" onClick={() => onLoggedOut()}>Logout</Nav.Link>
             )}
+
           </Nav>
         </Navbar.Collapse>
     </Navbar>

@@ -15,6 +15,8 @@ import { Navigation } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
+import { ProfileView } from '../profile-view/profile-view';
+import { FavoritesView } from '../favorites-view/favorites-view';
 
 
 export class MainView extends React.Component {
@@ -29,7 +31,7 @@ export class MainView extends React.Component {
 
   getMovies(token){
     axios.get('https://flexnitdb.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
       //Assing the result to the state
@@ -76,7 +78,7 @@ export class MainView extends React.Component {
 
     const MainWrapper = () => {
       if (!user) return (
-        <Col md={3}>
+        <Col md={12}>
           <LoginView movies={movies} onLoggedIn={user => this.onLoggedIn(user)} />
         </Col>
       );
@@ -95,7 +97,7 @@ export class MainView extends React.Component {
     };
 
     const RegisterWrapper = () => {
-      if (user) return <Redirect to="/" />
+      if (user) return <div className="main-view" />;
       return (
           <Col lg={3}>
             <RegistrationView />
@@ -106,9 +108,11 @@ export class MainView extends React.Component {
     const MovieWrapper = () => {
       const { movieId } = useParams();
 
+      if (movies.length === 0) return <div className="main-view" />;
+
       return (
-          <Col lg={6} md="auto">
-            <MovieView movie={movies.find(m => m._id === movieId)} />
+          <Col md="auto">
+            <MovieView movie={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -116,9 +120,11 @@ export class MainView extends React.Component {
     const DirectorWrapper = () => {
       const { name } = useParams();
 
+      if (movies.length === 0) return <div className="main-view" />;
+
       return (
           <Col md={4}>
-            <DirectorView director={movies.find(m => m.Director.Name === name).Director} />
+            <DirectorView director={movies.find(m => m.Director.Name === name).Director} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -126,30 +132,41 @@ export class MainView extends React.Component {
     const GenreWrapper = () => {
       const { Id } = useParams();
 
+      if (movies.length === 0) return <div className="main-view" />;
+
       return (
           <Col md={4}>
-            <GenreView genre={movies.find(m => m.Genre.Name === Id).Genre} />
+            <GenreView genre={movies.find(m => m.Genre.Name === Id).Genre} onBackClick={() => history.back()} />
           </Col>
       );
     };
 
     const ProfileWrapper = () => {
-      if (!user) return <Redirect to="/" />
+      if (!user) return <div className="main-view" />;
       return (
-          <Col md={8}>
-            <ProfileView movies={movies} user={user} />
+          <Col md={3}>
+            <ProfileView movies={movies} onBackClick={() => history.back()} />
           </Col>
       );
     };
 
     const UpdateWrapper = () => {
-      if (!user) return <Redirect to="/" />
+      if (!user) return <div className="main-view" />;
       return (
         <Col md={8}>
           <UserUpdate user={user} />
         </Col>
       );
     };
+
+    const FavoritesWrapper = () => {
+      if (!user) return <div className="main-view" />;
+      return (
+        <Col>
+          <FavoritesView movies={movies} onBackClick={() => history.back()} />
+        </Col>
+      )
+    }
 
     return (
       <Router>
@@ -172,6 +189,7 @@ export class MainView extends React.Component {
 
               <Route path="/users-update/:user" element={<UpdateWrapper />} />
             
+              <Route path="/users/:user/movies" element={<FavoritesWrapper />} />
             </Routes>
 
           </Row>

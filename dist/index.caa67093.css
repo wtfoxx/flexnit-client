@@ -4,8 +4,10 @@
 .flexnit {
   color: pink;
 }
-.flexnit {
-  color: pink;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
 .flexnit {
   color: pink;
@@ -13,9 +15,12 @@
 .flexnit {
   color: pink;
 }
+
 .flexnit {
   color: pink;
 }
+
+
 
 
 /*# sourceMappingURL=index.caa67093.css.map */

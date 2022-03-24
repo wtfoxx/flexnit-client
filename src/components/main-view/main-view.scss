@@ -3,3 +3,8 @@ $color: pink;
 .flexnit {
   color: $color;
 }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}

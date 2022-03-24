@@ -5,24 +5,26 @@ import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 
 import './movie-card.scss'
-import { Container } from "react-bootstrap";
+import { CardGroup, Container } from "react-bootstrap";
 
 export class MovieCard extends React.Component {
   render() {
     const { movie } = this.props;
 
     return (
-      <Container fluid="lg">
-        <Card>
-          <Card.Img variant="top" src={movie.ImagePath} />
-          <Card.Body>
-            <Card.Title>{movie.Title}</Card.Title>
-            <Card.Text>{movie.Description}</Card.Text>
-            <Link to={`/movies/${movie._id}`}>
-              <Button variant="link">Open</Button>
-            </Link>
-          </Card.Body>
-        </Card>
+      <Container fluid>
+        <CardGroup>
+          <Card className="mb-5">
+                <Card.Img variant="top" class="cardimg" src={movie.ImagePath} />
+            <Card.Body>
+              <Card.Title>{movie.Title}</Card.Title>
+              <Card.Text>{movie.Description}</Card.Text>
+              <Link to={`/movies/${movie._id}`}>
+                <Button variant="link">Open</Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </CardGroup>
       </Container>
 
 
