@@ -43,11 +43,16 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then((response) => {
+      let formattedDate = null;
+      let anyBirthday = response.data.Birthday;
+      if(anyBirthday){
+        formattedDate = anyBirthday.slice(0,10)
+      }
       this.setState({
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
-        Birthday: response.data.Birthday,
+        Birthday: formattedDate,
         Favorites: response.data.Favorites,
       });
     })
@@ -74,11 +79,16 @@ export class ProfileView extends React.Component {
       }
     )
     .then((response) => {
+      let formattedDate = null;
+      let anyBirthday = response.data.Birthday;
+      if(anyBirthday){
+        formattedDate = anyBirthday.slice(0,10)
+      }
       this.setState({
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
-        Birthday: response.data.Birthday,
+        Birthday: formattedDate,
       });
 
       localStorage.setItem('user', this.state.Username);
