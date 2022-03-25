@@ -1,18 +1,27 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import ReactDOM from "react-dom";
-import { MainView } from "./components/main-view/main-view";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import moviesApp from "./reducers/reducers";
+
+import MainView from "./components/main-view/main-view";
 
 //Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
+import { devToolsEnhancer } from "redux-devtools-extension";
+
+const store = createStore(moviesApp, devToolsEnhancer());
 
 //Main component (will eventually use all the others)
 class flexnitApplication extends React.Component {
   render() {
     return (
-    
-        <MainView />
-
+      <Provider store={store}>
+        
+          <MainView />
+     
+      </Provider>
     );
   }
 }
