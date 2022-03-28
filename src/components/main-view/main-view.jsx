@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import './main-view.scss'
 
@@ -14,7 +14,6 @@ import { setMovies } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 
 import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
@@ -36,6 +35,16 @@ class MainView extends React.Component {
       };
   }
 
+  componentDidMount(){
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
+  }
+
   getMovies(token){
     axios.get('https://flexnitdb.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
@@ -46,16 +55,6 @@ class MainView extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
-  }
-
-  componentDidMount(){
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
   }
 
   onLoggedIn(authData) {
@@ -81,7 +80,7 @@ class MainView extends React.Component {
     let { movies } = this.props;
     let { user } = this.state;
 
-    const MainWrapper = () => {
+    let MainWrapper = () => {
       if (!user) return (
         <Col md={3}>
           <LoginView movies={movies} onLoggedIn={user => this.onLoggedIn(user)} />
@@ -99,7 +98,7 @@ class MainView extends React.Component {
       
     };
 
-    const RegisterWrapper = () => {
+    let RegisterWrapper = () => {
       if (user) return <div className="main-view" />;
       return (
           <Col lg={3}>
@@ -108,7 +107,7 @@ class MainView extends React.Component {
       );
     }
 
-    const MovieWrapper = () => {
+    let MovieWrapper = () => {
       const { movieId } = useParams();
 
       if (movies.length === 0) return <div className="main-view" />;
@@ -120,7 +119,7 @@ class MainView extends React.Component {
       );
     };
 
-    const DirectorWrapper = () => {
+    let DirectorWrapper = () => {
       const { name } = useParams();
 
       if (movies.length === 0) return <div className="main-view" />;
@@ -132,7 +131,7 @@ class MainView extends React.Component {
       );
     };
 
-    const GenreWrapper = () => {
+    let GenreWrapper = () => {
       const { Id } = useParams();
 
       if (movies.length === 0) return <div className="main-view" />;
@@ -144,7 +143,7 @@ class MainView extends React.Component {
       );
     };
 
-    const ProfileWrapper = () => {
+    let ProfileWrapper = () => {
       if (!user) return <div className="main-view" />;
       return (
           <Col md={6} lg={4}>
@@ -154,7 +153,7 @@ class MainView extends React.Component {
     };
 
 
-    const FavoritesWrapper = () => {
+    let FavoritesWrapper = () => {
       if (!user) return <div className="main-view" />;
       return (
         <Col>

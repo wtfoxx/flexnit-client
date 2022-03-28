@@ -22093,7 +22093,6 @@ var _actions = require("../../actions/actions");
 var _moviesList = require("../movies-list/movies-list");
 var _moviesListDefault = parcelHelpers.interopDefault(_moviesList);
 var _loginView = require("../login-view/login-view");
-var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 var _reactBootstrap = require("react-bootstrap");
 var _navbar = require("../navbar/navbar");
@@ -22109,6 +22108,15 @@ class MainView extends _reactDefault.default.Component {
             user: null
         };
     }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
+            });
+            this.getMovies(accessToken);
+        }
+    }
     getMovies(token) {
         _axiosDefault.default.get('https://flexnitdb.herokuapp.com/movies', {
             headers: {
@@ -22119,15 +22127,6 @@ class MainView extends _reactDefault.default.Component {
         }).catch(function(error) {
             console.log(error);
         });
-    }
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-            this.getMovies(accessToken);
-        }
     }
     onLoggedIn(authData) {
         console.log(authData);
@@ -22149,7 +22148,7 @@ class MainView extends _reactDefault.default.Component {
         var _s = $RefreshSig$(), _s1 = $RefreshSig$(), _s2 = $RefreshSig$();
         let { movies  } = this.props;
         let { user  } = this.state;
-        const MainWrapper = ()=>{
+        let MainWrapper = ()=>{
             if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
                 md: 3
             }, /*#__PURE__*/ _reactDefault.default.createElement(_loginView.LoginView, {
@@ -22165,7 +22164,7 @@ class MainView extends _reactDefault.default.Component {
                 movie: movies
             })));
         };
-        const RegisterWrapper = ()=>{
+        let RegisterWrapper = ()=>{
             if (user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
@@ -22173,7 +22172,7 @@ class MainView extends _reactDefault.default.Component {
                 lg: 3
             }, /*#__PURE__*/ _reactDefault.default.createElement(_registrationView.RegistrationView, null)));
         };
-        const MovieWrapper = ()=>{
+        let MovieWrapper = ()=>{
             _s();
             const { movieId  } = _reactRouterDom.useParams();
             if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
@@ -22190,7 +22189,7 @@ class MainView extends _reactDefault.default.Component {
         _s(MovieWrapper, "JX48S7pREUvKJ33t2RU9jIbiqQg=", false, function() {
             return [_reactRouterDom.useParams];
         });
-        const DirectorWrapper = ()=>{
+        let DirectorWrapper = ()=>{
             _s1();
             const { name  } = _reactRouterDom.useParams();
             if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
@@ -22208,7 +22207,7 @@ class MainView extends _reactDefault.default.Component {
         _s1(DirectorWrapper, "q9oIgPWQX3EpcARY8hZxNeTW0zE=", false, function() {
             return [_reactRouterDom.useParams];
         });
-        const GenreWrapper = ()=>{
+        let GenreWrapper = ()=>{
             _s2();
             const { Id  } = _reactRouterDom.useParams();
             if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
@@ -22226,7 +22225,7 @@ class MainView extends _reactDefault.default.Component {
         _s2(GenreWrapper, "Cx0W/RXy6m2jWSNKtoDRdwgupYA=", false, function() {
             return [_reactRouterDom.useParams];
         });
-        const ProfileWrapper = ()=>{
+        let ProfileWrapper = ()=>{
             if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
@@ -22238,7 +22237,7 @@ class MainView extends _reactDefault.default.Component {
                 onBackClick: ()=>history.back()
             })));
         };
-        const FavoritesWrapper = ()=>{
+        let FavoritesWrapper = ()=>{
             if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
@@ -22290,7 +22289,7 @@ exports.default = _reactRedux.connect(mapStateToProps, {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","axios":"iYoWk","./main-view.scss":"jyMAr","../login-view/login-view":"054li","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","../navbar/navbar":"63yS7","../registration-view/registration-view":"aP2YV","../genre-view/genre-view":"8WCoL","../director-view/director-view":"ck15y","../profile-view/profile-view":"2E7Aw","../favorites-view/favorites-view":"jg6rA","../movie-card/movie-card":"6EiBJ","react-redux":"2L0if","../../actions/actions":"1Ttfj","../movies-list/movies-list":"1kGQ5"}],"iYoWk":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","./main-view.scss":"jyMAr","../login-view/login-view":"054li","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","../navbar/navbar":"63yS7","../registration-view/registration-view":"aP2YV","../genre-view/genre-view":"8WCoL","../director-view/director-view":"ck15y","../profile-view/profile-view":"2E7Aw","../favorites-view/favorites-view":"jg6rA","react-redux":"2L0if","../../actions/actions":"1Ttfj","../movies-list/movies-list":"1kGQ5"}],"iYoWk":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 
 },{"./lib/axios":"3QmO2"}],"3QmO2":[function(require,module,exports) {
@@ -40007,72 +40006,7 @@ class FavoritesView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./favorites-view.scss":"7to4E","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"7to4E":[function() {},{}],"6EiBJ":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$4249.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
-var _card = require("react-bootstrap/Card");
-var _cardDefault = parcelHelpers.interopDefault(_card);
-var _reactRouterDom = require("react-router-dom");
-var _movieCardScss = require("./movie-card.scss");
-var _reactBootstrap = require("react-bootstrap");
-class MovieCard extends _reactDefault.default.Component {
-    render() {
-        const { movie  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
-            fluid: true
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
-            className: "mb-5"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
-            variant: "top",
-            src: movie.ImagePath
-        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-            to: `/movies/${movie._id}`
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "link"
-        }, "Open")))))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
-        );
-    }
-}
-MovieCard.propTypes = {
-    movie: _propTypesDefault.default.shape({
-        Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
-        ImagePath: _propTypesDefault.default.string.isRequired,
-        Year: _propTypesDefault.default.string.isRequired,
-        Featured: _propTypesDefault.default.bool.isRequired,
-        Genre: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Description: _propTypesDefault.default.string.isRequired
-        }).isRequired,
-        Director: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Birth: _propTypesDefault.default.string.isRequired,
-            Death: _propTypesDefault.default.string,
-            Bio: _propTypesDefault.default.string.isRequired
-        }).isRequired
-    }).isRequired
-};
-
-  $parcel$ReactRefreshHelpers$4249.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","./movie-card.scss":"cF5gT","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"cF5gT":[function() {},{}],"2L0if":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./favorites-view.scss":"7to4E","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"7to4E":[function() {},{}],"2L0if":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "batch", ()=>_reactBatchedUpdates.unstable_batchedUpdates
@@ -41625,12 +41559,20 @@ function MoviesList(props) {
     if (!movies) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
         className: "main-view"
     }));
-    return filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+        md: 12,
+        style: {
+            margin: '1em'
+        }
+    }, /*#__PURE__*/ _reactDefault.default.createElement(VisibilityFilterInput, {
+        visibilityFilter: visibilityFilter
+    })), filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            md: 3,
             key: m._id
         }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
             movie: m
         }))
-    );
+    )));
 }
 _c = MoviesList;
 exports.default = _reactRedux.connect(mapStateToProps)(MoviesList);
@@ -41642,7 +41584,72 @@ $RefreshReg$(_c, "MoviesList");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","react-bootstrap":"h2YVd","react-redux":"2L0if","../movie-card/movie-card":"6EiBJ","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"4d0QS":[function(require,module,exports) {
+},{"react":"6TuXu","react-bootstrap":"h2YVd","react-redux":"2L0if","../movie-card/movie-card":"6EiBJ","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"6EiBJ":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$4249.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _card = require("react-bootstrap/Card");
+var _cardDefault = parcelHelpers.interopDefault(_card);
+var _reactRouterDom = require("react-router-dom");
+var _movieCardScss = require("./movie-card.scss");
+var _reactBootstrap = require("react-bootstrap");
+class MovieCard extends _reactDefault.default.Component {
+    render() {
+        const { movie  } = this.props;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
+            fluid: true
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
+            className: "mb-5"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
+            variant: "top",
+            src: movie.ImagePath
+        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+            to: `/movies/${movie._id}`
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "link"
+        }, "Open")))))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
+        );
+    }
+}
+MovieCard.propTypes = {
+    movie: _propTypesDefault.default.shape({
+        Title: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired,
+        ImagePath: _propTypesDefault.default.string.isRequired,
+        Year: _propTypesDefault.default.string.isRequired,
+        Featured: _propTypesDefault.default.bool.isRequired,
+        Genre: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Description: _propTypesDefault.default.string.isRequired
+        }).isRequired,
+        Director: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Birth: _propTypesDefault.default.string.isRequired,
+            Death: _propTypesDefault.default.string,
+            Bio: _propTypesDefault.default.string.isRequired
+        }).isRequired
+    }).isRequired
+};
+
+  $parcel$ReactRefreshHelpers$4249.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","./movie-card.scss":"cF5gT","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"cF5gT":[function() {},{}],"4d0QS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes
