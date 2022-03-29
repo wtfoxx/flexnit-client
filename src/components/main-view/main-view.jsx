@@ -9,11 +9,12 @@ import { useParams } from 'react-router-dom';
 
 import './main-view.scss'
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
+import ProfileView from '../profile-view/profile-view';
+import LoginView from '../login-view/login-view';
 
-import { LoginView } from '../login-view/login-view';
 import { MovieView } from '../movie-view/movie-view';
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
@@ -21,23 +22,25 @@ import { Navigation } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
-import { ProfileView } from '../profile-view/profile-view';
+
 import { FavoritesView } from '../favorites-view/favorites-view';
 
+let mapStateToProps = (state) => {
+  return { 
+    movies: state.movies,
+    user: state.user
+  }
+}
 
 class MainView extends React.Component {
 
   constructor(){
     super();
-      this.state = {
- 
-        user: null
-      };
   }
 
   componentDidMount(){
     let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
+    if (accessToken) {
       this.setState({
         user: localStorage.getItem('user')
       });
@@ -58,11 +61,11 @@ class MainView extends React.Component {
   }
 
   onLoggedIn(authData) {
+    let userData = {
+      ...authData.user,
+    };
     console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
+    this.props.setUser(userData);
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
@@ -77,29 +80,29 @@ class MainView extends React.Component {
   }
 
   render() {
-    let { movies } = this.props;
-    let { user } = this.state;
+    let { movies, user } = this.props;
+    let localUser = localStorage.getItem('user');
 
     let MainWrapper = () => {
-      if (!user) return (
+      if (!localUser) return (
         <Col md={3}>
-          <LoginView movies={movies} onLoggedIn={user => this.onLoggedIn(user)} />
+          <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
         </Col>
       );
 
       if (movies.length === 0) return <div className="main-view" />;
       
       return (
-        <Col lg={3}>
+        <Container>
           <MoviesList movie={movies} />
-        </Col>
+        </Container>
 
       );
       
     };
 
     let RegisterWrapper = () => {
-      if (user) return <div className="main-view" />;
+      if (!user) return <div className="main-view" />;
       return (
           <Col lg={3}>
             <RegistrationView />
@@ -131,6 +134,7 @@ class MainView extends React.Component {
       );
     };
 
+
     let GenreWrapper = () => {
       const { Id } = useParams();
 
@@ -144,7 +148,7 @@ class MainView extends React.Component {
     };
 
     let ProfileWrapper = () => {
-      if (!user) return <div className="main-view" />;
+      if (!localUser) return <div className="main-view" />;
       return (
           <Col md={6} lg={4}>
             <ProfileView movies={movies} onBackClick={() => history.back()} />
@@ -154,7 +158,7 @@ class MainView extends React.Component {
 
 
     let FavoritesWrapper = () => {
-      if (!user) return <div className="main-view" />;
+      if (!localUser) return <div className="main-view" />;
       return (
         <Col>
           <FavoritesView movies={movies} onBackClick={() => history.back()} />
@@ -164,7 +168,7 @@ class MainView extends React.Component {
 
     return (
       <Router>
-        <Navigation user={user} />
+        <Navigation />
         <p></p>
           <Row className="main-view justify-content-md-center">
             <Routes>
@@ -177,7 +181,7 @@ class MainView extends React.Component {
 
               <Route path="/genres/:Id" element={<GenreWrapper />} />
 
-              <Route path="/director/:name" element={<DirectorWrapper />} />
+              <Route path="/directors/:name" element={<DirectorWrapper />} />
 
               <Route path="/users/:user" element={<ProfileWrapper />} />
             
@@ -190,8 +194,4 @@ class MainView extends React.Component {
   }
 }
 
-let mapStateToProps = state => {
-  return { movies: state.movies }
-}
-
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);

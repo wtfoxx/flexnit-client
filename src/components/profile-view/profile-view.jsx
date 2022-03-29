@@ -1,54 +1,42 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import PropTypes, { func } from 'prop-types';
 import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
-
+import { setUser, updateUser } from '../../actions/actions';
  
 export class ProfileView extends React.Component {
 
   constructor() {
     super();
-
-      this.state = {
-        Username: null,
-        Password: null,
-        Email: null,
-        Birthday: null,
-        Favorites: [],
-    };
   }
 
   componentDidMount() {
-    const accessToken = localStorage.getItem('token');
-    this.getUser(accessToken);
-  }
-
-  onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.setState({
-      user: null,
-    });
-    window.open('/', '_self');
+    this.getUser();
   }
 
   //Performs a GET request on the API to get information on the specified user: ${Username}
-  getUser = (token) => {
+  getUser() {
     const Username = localStorage.getItem('user');
+    const token = localStorage.getItem('token')
 
     axios.get(`https://flexnitdb.herokuapp.com/users/${Username}`, 
     {
       headers: { Authorization: `Bearer ${token}` }
     })
-    .then((response) => {
-      this.setState({
+    .then(response => {
+      let formattedDate = null;
+      let anyBirthday =  response.data.Birthday;
+      if(anyBirthday){
+        formattedDate = anyBirthday.slice(0,10)
+      }
+      this.props.setUser({
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
-        Birthday: response.data.Birthday,
-        Favorites: response.data.Favorites,
+        Birthday: formattedDate
       });
     })
     .catch(function (error) {
@@ -63,22 +51,22 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem('token');
 
     axios.put(`https://flexnitdb.herokuapp.com/users/${Username}`,
-      {
-        Username: this.state.Username,
-        Password: this.state.Password,
-        Email: this.state.Email,
-        Birthday: this.state.Birthday,
-      },
+      this.props,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     )
-    .then((response) => {
-      this.setState({
+    .then(response => {
+      let formattedDate = null;
+      let anyBirthday = response.data.Birthday;
+      if(anyBirthday){
+        formattedDate = anyBirthday.slice(0,10)
+      }
+      this.props.updateUser({
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
-        Birthday: response.data.Birthday,
+        Birthday: formattedDate,
       });
 
       localStorage.setItem('user', this.state.Username);
@@ -90,26 +78,6 @@ export class ProfileView extends React.Component {
       });
     };
 
-  //Performs a DELETE request on the API to remove a movie from the Favorites array for the specified user
-  onRemoveFavorite = (e, movie) => {
-    e.preventDefault();
-    const Username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-
-    axios.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${movie._id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    )
-    .then((response) => {
-      console.log(response);
-      alert(`'` + movie.Title + `'` + " removed from Favorites");
-      this.componentDidMount();
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
 
   //Performs a DELETE request on the API to remove the specified user from the database
   onDeleteUser() {
@@ -157,8 +125,8 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies, onBackClick } = this.props;
-    const { Favorites, Username, Email, Birthday } = this.state;
+    const { onBackClick } = this.props;
+    const { Username, Email, Birthday } = this.props.user || {};
 
     if (!Username) {
       return null;
@@ -240,6 +208,25 @@ export class ProfileView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: (user) => {
+      dispatch(setUser(user))
+    },
+    updateUser: (user) => {
+      dispatch(updateUser(user))
+    }
+  }
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(ProfileView);
 
 ProfileView.propTypes = {
     movies: PropTypes.arrayOf(PropTypes.shape({

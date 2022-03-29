@@ -22092,25 +22092,30 @@ var _mainViewScss = require("./main-view.scss");
 var _actions = require("../../actions/actions");
 var _moviesList = require("../movies-list/movies-list");
 var _moviesListDefault = parcelHelpers.interopDefault(_moviesList);
+var _profileView = require("../profile-view/profile-view");
+var _profileViewDefault = parcelHelpers.interopDefault(_profileView);
 var _loginView = require("../login-view/login-view");
+var _loginViewDefault = parcelHelpers.interopDefault(_loginView);
 var _movieView = require("../movie-view/movie-view");
 var _reactBootstrap = require("react-bootstrap");
 var _navbar = require("../navbar/navbar");
 var _registrationView = require("../registration-view/registration-view");
 var _genreView = require("../genre-view/genre-view");
 var _directorView = require("../director-view/director-view");
-var _profileView = require("../profile-view/profile-view");
 var _favoritesView = require("../favorites-view/favorites-view");
+let mapStateToProps = (state)=>{
+    return {
+        movies: state.movies,
+        user: state.user
+    };
+};
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
-        this.state = {
-            user: null
-        };
     }
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
+        if (accessToken) {
             this.setState({
                 user: localStorage.getItem('user')
             });
@@ -22129,10 +22134,11 @@ class MainView extends _reactDefault.default.Component {
         });
     }
     onLoggedIn(authData) {
+        let userData = {
+            ...authData.user
+        };
         console.log(authData);
-        this.setState({
-            user: authData.user.Username
-        });
+        this.props.setUser(userData);
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
@@ -22146,26 +22152,23 @@ class MainView extends _reactDefault.default.Component {
     }
     render() {
         var _s = $RefreshSig$(), _s1 = $RefreshSig$(), _s2 = $RefreshSig$();
-        let { movies  } = this.props;
-        let { user  } = this.state;
+        let { movies , user  } = this.props;
+        let localUser = localStorage.getItem('user');
         let MainWrapper = ()=>{
-            if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            if (!localUser) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
                 md: 3
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_loginView.LoginView, {
-                movies: movies,
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_loginViewDefault.default, {
                 onLoggedIn: (user1)=>this.onLoggedIn(user1)
             })));
             if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
-            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                lg: 3
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_moviesListDefault.default, {
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_moviesListDefault.default, {
                 movie: movies
             })));
         };
         let RegisterWrapper = ()=>{
-            if (user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
@@ -22226,19 +22229,19 @@ class MainView extends _reactDefault.default.Component {
             return [_reactRouterDom.useParams];
         });
         let ProfileWrapper = ()=>{
-            if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            if (!localUser) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
                 md: 6,
                 lg: 4
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_profileView.ProfileView, {
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_profileViewDefault.default, {
                 movies: movies,
                 onBackClick: ()=>history.back()
             })));
         };
         let FavoritesWrapper = ()=>{
-            if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            if (!localUser) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
             return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_favoritesView.FavoritesView, {
@@ -22246,9 +22249,7 @@ class MainView extends _reactDefault.default.Component {
                 onBackClick: ()=>history.back()
             })));
         };
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/ _reactDefault.default.createElement(_navbar.Navigation, {
-            user: user
-        }), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/ _reactDefault.default.createElement(_navbar.Navigation, null), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "main-view justify-content-md-center"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
             exact: true,
@@ -22264,7 +22265,7 @@ class MainView extends _reactDefault.default.Component {
             path: "/genres/:Id",
             element: /*#__PURE__*/ _reactDefault.default.createElement(GenreWrapper, null)
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
-            path: "/director/:name",
+            path: "/directors/:name",
             element: /*#__PURE__*/ _reactDefault.default.createElement(DirectorWrapper, null)
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
             path: "/users/:user",
@@ -22275,13 +22276,9 @@ class MainView extends _reactDefault.default.Component {
         })))));
     }
 }
-let mapStateToProps = (state)=>{
-    return {
-        movies: state.movies
-    };
-};
 exports.default = _reactRedux.connect(mapStateToProps, {
-    setMovies: _actions.setMovies
+    setMovies: _actions.setMovies,
+    setUser: _actions.setUser
 })(MainView);
 
   $parcel$ReactRefreshHelpers$35bf.postlude(module);
@@ -23857,8 +23854,6 @@ $parcel$ReactRefreshHelpers$02dd.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LoginView", ()=>LoginView
-);
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
@@ -23870,29 +23865,40 @@ var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _reactRouterDom = require("react-router-dom");
+var _reactRedux = require("react-redux");
+var _actions = require("../../actions/actions");
 var _loginViewScss = require("./login-view.scss");
 var _registrationView = require("../registration-view/registration-view");
 var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
-function LoginView(props) {
+const mapStateToProps = (state)=>{
+    return {
+        user: state.user
+    };
+};
+function LoginView({ user , setUser , updateInput , onLoggedIn  }) {
     _s();
-    const [username, setUsername] = _react.useState('');
-    const [password, setPassword] = _react.useState(''); //Declare hook for each input
     const [usernameErr, setUsernameErr] = _react.useState('');
     const [passwordErr, setPasswordErr] = _react.useState('');
+    _react.useEffect(()=>{
+        setUser({
+            Username: '',
+            Password: ''
+        });
+    });
     const validate = ()=>{
         let isReq = true;
-        if (!username) {
+        if (!user.Username) {
             setUsernameErr('Username is required');
             isReq = false;
-        } else if (username.length < 5) {
+        } else if (user.Username.length < 5) {
             setUsernameErr('Username must be at least 5 characters long');
             isReq = false;
         }
-        if (!password) {
+        if (!user.Password) {
             setPasswordErr('Password is required');
             isReq = false;
-        } else if (password.length < 6) {
+        } else if (user.Password.length < 6) {
             setPasswordErr('Password must be at least 6 characters long');
             isReq = false;
         }
@@ -23902,11 +23908,10 @@ function LoginView(props) {
         e.preventDefault();
         const isReq = validate();
         if (isReq) /* Send a request to the server for authentication */ _axiosDefault.default.post('https://flexnitdb.herokuapp.com/login', {
-            Username: username,
-            Password: password
+            Username: user.Username,
+            Password: user.Password
         }).then((response)=>{
-            const data = response.data;
-            props.onLoggedIn(data);
+            onLoggedIn(response.data);
         }).catch((e1)=>{
             alert('User does not exist.');
             console.log('User does not exist.');
@@ -23916,20 +23921,20 @@ function LoginView(props) {
         className: "mb-3",
         controlId: "formUsername"
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, null, "Username"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        required: true,
         type: "text",
         placeholder: "Enter username",
-        value: username,
-        onChange: (e)=>setUsername(e.target.value)
+        onChange: (e)=>updateInput(e.target.value, 'Username')
     }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Text, {
         className: "text-muted"
     }, usernameErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, usernameErr))), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         className: "mb-3",
         controlId: "formPassword"
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        required: true,
         type: "password",
         placeholder: "Password",
-        value: password,
-        onChange: (e)=>setPassword(e.target.value)
+        onChange: (e)=>updateInput(e.target.value, 'Password')
     }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Text, {
         className: "text-muted"
     }, passwordErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, passwordErr))), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -23942,8 +23947,12 @@ function LoginView(props) {
         variant: "secondary"
     }, "Register")))))));
 }
-_s(LoginView, "OE8YjcJGIuyxg6F5muZvwXJgQUc=");
+_s(LoginView, "jDGlNa3IgYlh9bWr2K5Dc8FjEFU=");
 _c = LoginView;
+exports.default = _reactRedux.connect(mapStateToProps, {
+    setUser: _actions.setUser,
+    updateInput: _actions.updateInput
+})(LoginView);
 LoginView.propTypes = {
     onLoggedIn: _propTypesDefault.default.func.isRequired
 };
@@ -23955,7 +23964,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","./login-view.scss":"lS4BK","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","axios":"iYoWk","../registration-view/registration-view":"aP2YV","react-router-dom":"kjA5T","react-bootstrap":"h2YVd"}],"1tgq3":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","./login-view.scss":"lS4BK","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","axios":"iYoWk","../registration-view/registration-view":"aP2YV","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","react-redux":"2L0if","../../actions/actions":"1Ttfj"}],"1tgq3":[function(require,module,exports) {
 var ReactIs = require('react-is');
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
@@ -39232,781 +39241,7 @@ const normalizeSearch = (search)=>!search || search === "?" ? "" : search.starts
 const normalizeHash = (hash)=>!hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash
 ; ///////////////////////////////////////////////////////////////////////////////
 
-},{"react":"6TuXu","history":"34V7X","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr"}],"ikZdr":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$3741 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$3741.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieView", ()=>MovieView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
-var _card = require("react-bootstrap/Card");
-var _cardDefault = parcelHelpers.interopDefault(_card);
-var _reactRouterDom = require("react-router-dom");
-var _movieViewScss = require("./movie-view.scss");
-var _reactBootstrap = require("react-bootstrap");
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-class MovieView extends _reactDefault.default.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            Favorites: []
-        };
-        this.onAddFavorite = this.onAddFavorite.bind(this);
-        this.onRemoveFavorite = this.onRemoveFavorite.bind(this);
-    }
-    componentDidMount() {
-        const accessToken = localStorage.getItem('token');
-        this.getUser(accessToken);
-    }
-    getUser(token) {
-        const Username = localStorage.getItem('user');
-        _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            this.setState({
-                Favorites: response.data.Favorites
-            });
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-    onAddFavorite() {
-        const token = localStorage.getItem('token');
-        const Username = localStorage.getItem('user');
-        _axiosDefault.default.post(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            console.log(response);
-            alert(`'` + this.props.movie.Title + `'` + " was added to your favorites! :)");
-            window.open(`/movies/${this.props.movie._id}`, '_self');
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-    onRemoveFavorite() {
-        const token = localStorage.getItem('token');
-        const Username = localStorage.getItem('user');
-        _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            console.log(response);
-            alert(`'` + this.props.movie.Title + `'` + " was removed from your favorites!");
-            window.open(`/movies/${this.props.movie._id}`, '_self');
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-    render() {
-        const { movie , onBackClick  } = this.props;
-        const Favorites = this.state.Favorites;
-        let isFavorite = false;
-        if (Favorites.includes(this.props.movie._id)) isFavorite = true;
-        else isFavorite = false;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
-            variant: "top",
-            src: movie.ImagePath
-        })))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Subtitle, {
-            className: "text-muted"
-        }, movie.Year, ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-            to: `/genres/${movie.Genre.Name}`
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            size: "sm",
-            variant: "link"
-        }, movie.Genre.Name)), ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-            to: `/director/${movie.Director.Name}`
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            size: "sm",
-            variant: "link"
-        }, movie.Director.Name))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "primary",
-            onClick: ()=>{
-                onBackClick();
-            }
-        }, "Back"), ' ', isFavorite ? /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "danger",
-            onClick: this.onRemoveFavorite
-        }, "Remove favorite") : /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "warning",
-            onClick: this.onAddFavorite
-        }, "Add favorite"))))))));
-    }
-}
-MovieView.propTypes = {
-    movie: _propTypesDefault.default.shape({
-        Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
-        ImagePath: _propTypesDefault.default.string.isRequired,
-        Year: _propTypesDefault.default.string.isRequired,
-        Featured: _propTypesDefault.default.bool.isRequired,
-        Genre: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Description: _propTypesDefault.default.string.isRequired
-        }).isRequired,
-        Director: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Birth: _propTypesDefault.default.string.isRequired,
-            Death: _propTypesDefault.default.string,
-            Bio: _propTypesDefault.default.string.isRequired
-        }).isRequired
-    }).isRequired
-};
-
-  $parcel$ReactRefreshHelpers$3741.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","prop-types":"1tgq3","./movie-view.scss":"kvL93","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","axios":"iYoWk"}],"kvL93":[function() {},{}],"63yS7":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$1bb2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$1bb2.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Navigation", ()=>Navigation
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactBootstrap = require("react-bootstrap");
-function Navigation({ user  }) {
-    const onLoggedOut = ()=>{
-        localStorage.clear();
-        window.open("/", "_self");
-    };
-    const isAuth = ()=>{
-        if (typeof window == "undefined") return false;
-        if (localStorage.getItem("token")) return localStorage.getItem("token");
-        else return false;
-    };
-    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar, {
-        bg: "dark",
-        variant: "dark",
-        className: "main-nav",
-        sticky: "top",
-        expand: "lg"
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Brand, {
-        className: "navbar-logo",
-        href: "/"
-    }, "Flexnit"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Toggle, {
-        "aria-controls": "responsive-navbar-nav"
-    }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Collapse, {
-        id: "responsive-navbar-nav"
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav, {
-        className: "me-auto"
-    }, isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
-        href: `/users/${user}`
-    }, user), isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
-        href: `/users/${user}/movies`
-    }, "Favorites"), isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
-        variant: "link",
-        onClick: ()=>onLoggedOut()
-    }, "Logout")))));
-}
-_c = Navigation;
-var _c;
-$RefreshReg$(_c, "Navigation");
-
-  $parcel$ReactRefreshHelpers$1bb2.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"8WCoL":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$5f0a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$5f0a.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "GenreView", ()=>GenreView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _reactRouterDom = require("react-router-dom");
-var _genreViewScss = require("./genre-view.scss");
-var _reactBootstrap = require("react-bootstrap");
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-function _defineProperty(obj, key, value) {
-    if (key in obj) Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-    });
-    else obj[key] = value;
-    return obj;
-}
-class GenreView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        _defineProperty(this, "getGenre", (token, genre)=>{
-            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/genres/${genre.Name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                this.setState({
-                    movies: response.data
-                });
-                console.log(response.data);
-                console.log(genre.Name);
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        this.state = {
-            movies: []
-        };
-    }
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        let { genre  } = this.props;
-        if (accessToken !== null) this.getGenre(accessToken, genre);
-    }
-    render() {
-        const { genre , onBackClick  } = this.props;
-        const { movies  } = this.state;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-            lg: 8,
-            md: 12
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
-            md: 1
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
-            className: "mb-4"
-        }, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
-            className: "mb-3"
-        }, genre.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            onClick: ()=>{
-                onBackClick();
-            }
-        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "mt-5 justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, genre.Name, " movies")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "text-center"
-        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, movies.length > 0 && movies.map((movie)=>{
-            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                lg: 3,
-                md: 4,
-                sm: 12,
-                key: movie._id
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-                to: `/movies/${movie._id}`
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
-                variant: "top",
-                src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
-        })))))));
-    }
-}
-
-  $parcel$ReactRefreshHelpers$5f0a.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./genre-view.scss":"3BqnD","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","axios":"iYoWk"}],"3BqnD":[function() {},{}],"ck15y":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$f8cc = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$f8cc.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "DirectorView", ()=>DirectorView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _reactRouterDom = require("react-router-dom");
-var _directorViewScss = require("./director-view.scss");
-var _reactBootstrap = require("react-bootstrap");
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-function _defineProperty(obj, key, value) {
-    if (key in obj) Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-    });
-    else obj[key] = value;
-    return obj;
-}
-class DirectorView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        _defineProperty(this, "getDirector", (token, director)=>{
-            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/directors/${director.Name}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                this.setState({
-                    movies: response.data
-                });
-                console.log(response.data);
-                console.log(director.Name);
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        this.state = {
-            movies: []
-        };
-    }
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        let { director  } = this.props;
-        if (accessToken !== null) this.getDirector(accessToken, director);
-    }
-    render() {
-        const { director , onBackClick  } = this.props;
-        const { movies  } = this.state;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-            lg: 8,
-            md: 12
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
-            md: 1
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
-            className: "mb-4"
-        }, director.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
-            className: "mb-3"
-        }, director.Birth), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
-            className: "mb-3"
-        }, director.Bio), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            onClick: ()=>{
-                onBackClick();
-            }
-        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "mt-5 justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Movies by ", director.Name)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "text-center"
-        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, movies.length > 0 && movies.map((movie)=>{
-            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                lg: 3,
-                md: 4,
-                sm: 12,
-                key: movie._id
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-                to: `/movies/${movie._id}`
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
-                variant: "top",
-                src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
-        })))))));
-    }
-}
-
-  $parcel$ReactRefreshHelpers$f8cc.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./director-view.scss":"hWS1b","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","axios":"iYoWk"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$58c6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$58c6.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfileView", ()=>ProfileView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _profileViewScss = require("./profile-view.scss");
-var _reactRouterDom = require("react-router-dom");
-var _reactBootstrap = require("react-bootstrap");
-function _defineProperty(obj, key, value) {
-    if (key in obj) Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-    });
-    else obj[key] = value;
-    return obj;
-}
-class ProfileView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        _defineProperty(this, "getUser", (token)=>{
-            const Username = localStorage.getItem('user');
-            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    Favorites: response.data.Favorites
-                });
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        _defineProperty(this, "editUser", (e)=>{
-            e.preventDefault();
-            const Username = localStorage.getItem('user');
-            const token = localStorage.getItem('token');
-            _axiosDefault.default.put(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-                Username: this.state.Username,
-                Password: this.state.Password,
-                Email: this.state.Email,
-                Birthday: this.state.Birthday
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday
-                });
-                localStorage.setItem('user', this.state.Username);
-                alert("Profile updated successfully!");
-                window.open(`/`, '_self');
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        _defineProperty(this, "onRemoveFavorite", (e, movie)=>{
-            e.preventDefault();
-            const Username = localStorage.getItem('user');
-            const token = localStorage.getItem('token');
-            _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${movie._id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                console.log(response);
-                alert(`'` + movie.Title + `'` + " removed from Favorites");
-                this.componentDidMount();
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        this.state = {
-            Username: null,
-            Password: null,
-            Email: null,
-            Birthday: null,
-            Favorites: []
-        };
-    }
-    componentDidMount() {
-        const accessToken = localStorage.getItem('token');
-        this.getUser(accessToken);
-    }
-    onLoggedOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.setState({
-            user: null
-        });
-        window.open('/', '_self');
-    }
-    //Performs a DELETE request on the API to remove the specified user from the database
-    onDeleteUser() {
-        const Username = localStorage.getItem('user');
-        const token = localStorage.getItem('token');
-        _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            console.log(response);
-            alert("Profile deleted, goodbye!");
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            window.open('/', '_self');
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-    setUsername(value) {
-        this.setState({
-            Username: value
-        });
-    }
-    setPassword(value) {
-        this.setState({
-            Password: value
-        });
-    }
-    setEmail(value) {
-        this.setState({
-            Email: value
-        });
-    }
-    setBirthday(value) {
-        this.setState({
-            Birthday: value
-        });
-    }
-    render() {
-        const { movies , onBackClick  } = this.props;
-        const { Favorites , Username , Email , Birthday  } = this.state;
-        if (!Username) return null;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "backButton"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            variant: "outline-primary",
-            onClick: ()=>{
-                onBackClick(null);
-            }
-        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, "Hello, ", Username), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
-            className: "mb-2 text-muted"
-        }, "To update your information, just rewrite the ones you wish to change and hit Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form, {
-            className: "update-form",
-            onSubmit: (e)=>this.editUser(e, this.Username, this.Password, this.Email, this.Birthday)
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-            className: "mb-3"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Username"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
-            type: "text",
-            name: "Username",
-            placeholder: "New Username",
-            value: Username,
-            onChange: (e)=>this.setUsername(e.target.value)
-            ,
-            required: true
-        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-            className: "mb-3"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
-            type: "password",
-            placeholder: "New Password",
-            value: "",
-            onChange: (e)=>this.setPassword(e.target.value)
-            ,
-            required: true
-        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-            className: "mb-3"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
-            type: "email",
-            placeholder: "Enter Email",
-            value: Email,
-            onChange: (e)=>this.setEmail(e.target.value)
-            ,
-            required: true
-        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-            className: "mb-3"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
-            type: "date",
-            value: Birthday,
-            onChange: (e)=>this.setBirthday(e.target.value)
-        })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "mt-3"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            variant: "success",
-            type: "submit",
-            onClick: this.editUser
-        }, "Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            className: "ml-3",
-            variant: "danger",
-            onClick: ()=>this.onDeleteUser()
-        }, "Delete User")))))));
-    }
-}
-ProfileView.propTypes = {
-    movies: _propTypesDefault.default.arrayOf(_propTypesDefault.default.shape({
-        Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
-        ImagePath: _propTypesDefault.default.string.isRequired,
-        Genre: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Description: _propTypesDefault.default.string.isRequired
-        }).isRequired,
-        Director: _propTypesDefault.default.shape({
-            Bio: _propTypesDefault.default.string.isRequired,
-            Birth: _propTypesDefault.default.string.isRequired,
-            Name: _propTypesDefault.default.string.isRequired
-        }).isRequired
-    })).isRequired,
-    onBackClick: _propTypesDefault.default.func.isRequired
-};
-
-  $parcel$ReactRefreshHelpers$58c6.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./profile-view.scss":"gb0ga","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-router-dom":"kjA5T"}],"gb0ga":[function() {},{}],"jg6rA":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$3734 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$3734.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "FavoritesView", ()=>FavoritesView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _favoritesViewScss = require("./favorites-view.scss");
-var _reactRouterDom = require("react-router-dom");
-var _reactBootstrap = require("react-bootstrap");
-function _defineProperty(obj, key, value) {
-    if (key in obj) Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-    });
-    else obj[key] = value;
-    return obj;
-}
-class FavoritesView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        _defineProperty(this, "getUser", (token)=>{
-            const Username = localStorage.getItem('user');
-            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    Favorites: response.data.Favorites
-                });
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        _defineProperty(this, "onRemoveFavorite", (e, movie)=>{
-            e.preventDefault();
-            const Username = localStorage.getItem('user');
-            const token = localStorage.getItem('token');
-            _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${movie._id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-                console.log(response);
-                alert(`'` + movie.Title + `'` + " removed from Favorites");
-                this.componentDidMount();
-            }).catch(function(error) {
-                console.log(error);
-            });
-        });
-        this.state = {
-            Username: null,
-            Password: null,
-            Email: null,
-            Birthday: null,
-            Favorites: []
-        };
-    }
-    componentDidMount() {
-        const accessToken = localStorage.getItem('token');
-        this.getUser(accessToken);
-    }
-    onLoggedOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.setState({
-            user: null
-        });
-        window.open('/', '_self');
-    }
-    render() {
-        const { movies , onBackClick  } = this.props;
-        const { Favorites , Username , Email , Birthday  } = this.state;
-        if (!Username) return null;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "backButton"
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            variant: "primary",
-            onClick: ()=>{
-                onBackClick(null);
-            }
-        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "text-center"
-        }, "No favorites yet :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "justify-content-center"
-        }, Favorites.length > 0 && movies.map((movie)=>{
-            if (movie._id === Favorites.find((fav)=>fav === movie._id
-            )) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                lg: 3,
-                md: 4,
-                sm: 6,
-                key: movie._id
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
-                className: "img",
-                variant: "top",
-                src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
-                className: "mb-2"
-            }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-                size: "sm",
-                variant: "danger",
-                value: movie._id,
-                onClick: (e)=>this.onRemoveFavorite(e, movie)
-            }, "Remove"))))));
-        }))))));
-    }
-}
-
-  $parcel$ReactRefreshHelpers$3734.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./favorites-view.scss":"7to4E","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"7to4E":[function() {},{}],"2L0if":[function(require,module,exports) {
+},{"react":"6TuXu","history":"34V7X","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr"}],"2L0if":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "batch", ()=>_reactBatchedUpdates.unstable_batchedUpdates
@@ -41512,12 +40747,27 @@ parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
 );
 parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
 );
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
+);
+parcelHelpers.export(exports, "UPDATE_INPUT", ()=>UPDATE_INPUT
+);
+parcelHelpers.export(exports, "UPDATE_FAVORITE", ()=>UPDATE_FAVORITE
+);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
 );
+parcelHelpers.export(exports, "setUser", ()=>setUser
+);
+parcelHelpers.export(exports, "updateInput", ()=>updateInput
+);
+parcelHelpers.export(exports, "updateFavorite", ()=>updateFavorite
+);
 const SET_MOVIES = 'SET_MOVIES';
 const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
+const UPDATE_INPUT = 'UPDATE_INPUT';
+const UPDATE_FAVORITE = 'ADD_FAVORITE';
 function setMovies(value) {
     return {
         type: SET_MOVIES,
@@ -41530,8 +40780,840 @@ function setFilter(value) {
         value
     };
 }
+function setUser(value) {
+    return {
+        type: SET_USER,
+        value
+    };
+}
+function updateInput(value = {
+    Username: '',
+    Password: '',
+    Email: '',
+    Birthday: ''
+}, field = null) {
+    return {
+        type: UPDATE_INPUT,
+        value,
+        field
+    };
+}
+function updateFavorite(value, field = 'Favorites') {
+    return {
+        type: UPDATE_FAVORITE,
+        value,
+        field
+    };
+}
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr"}],"1kGQ5":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr"}],"ikZdr":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$3741 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$3741.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieView", ()=>MovieView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _card = require("react-bootstrap/Card");
+var _cardDefault = parcelHelpers.interopDefault(_card);
+var _reactRouterDom = require("react-router-dom");
+var _movieViewScss = require("./movie-view.scss");
+var _reactBootstrap = require("react-bootstrap");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+class MovieView extends _reactDefault.default.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            Favorites: []
+        };
+        this.onAddFavorite = this.onAddFavorite.bind(this);
+        this.onRemoveFavorite = this.onRemoveFavorite.bind(this);
+    }
+    componentDidMount() {
+        const accessToken = localStorage.getItem('token');
+        this.getUser(accessToken);
+    }
+    getUser(token) {
+        const Username = localStorage.getItem('user');
+        _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            this.setState({
+                Favorites: response.data.Favorites
+            });
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    onAddFavorite() {
+        const token = localStorage.getItem('token');
+        const Username = localStorage.getItem('user');
+        _axiosDefault.default.post(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+            alert(`'` + this.props.movie.Title + `'` + " was added to your favorites! :)");
+            window.open(`/movies/${this.props.movie._id}`, '_self');
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    onRemoveFavorite() {
+        const token = localStorage.getItem('token');
+        const Username = localStorage.getItem('user');
+        _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+            alert(`'` + this.props.movie.Title + `'` + " was removed from your favorites!");
+            window.open(`/movies/${this.props.movie._id}`, '_self');
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    render() {
+        const { movie , onBackClick  } = this.props;
+        const Favorites = this.state.Favorites;
+        let isFavorite = false;
+        if (Favorites.includes(this.props.movie._id)) isFavorite = true;
+        else isFavorite = false;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
+            variant: "top",
+            src: movie.ImagePath
+        })))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Subtitle, {
+            className: "text-muted"
+        }, movie.Year, ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+            to: `/genres/${movie.Genre.Name}`
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            size: "sm",
+            variant: "link"
+        }, movie.Genre.Name)), ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+            to: `/directors/${movie.Director.Name}`
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            size: "sm",
+            variant: "link"
+        }, movie.Director.Name))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "primary",
+            onClick: ()=>{
+                onBackClick();
+            }
+        }, "Back"), ' ', isFavorite ? /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "danger",
+            onClick: this.onRemoveFavorite
+        }, "Remove favorite") : /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "warning",
+            onClick: this.onAddFavorite
+        }, "Add favorite"))))))));
+    }
+}
+MovieView.propTypes = {
+    movie: _propTypesDefault.default.shape({
+        Title: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired,
+        ImagePath: _propTypesDefault.default.string.isRequired,
+        Year: _propTypesDefault.default.string.isRequired,
+        Featured: _propTypesDefault.default.bool.isRequired,
+        Genre: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Description: _propTypesDefault.default.string.isRequired
+        }).isRequired,
+        Director: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Birth: _propTypesDefault.default.string.isRequired,
+            Death: _propTypesDefault.default.string,
+            Bio: _propTypesDefault.default.string.isRequired
+        }).isRequired
+    }).isRequired
+};
+
+  $parcel$ReactRefreshHelpers$3741.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","prop-types":"1tgq3","./movie-view.scss":"kvL93","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","axios":"iYoWk"}],"kvL93":[function() {},{}],"63yS7":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$1bb2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$1bb2.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Navigation", ()=>Navigation
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactBootstrap = require("react-bootstrap");
+var _reactRedux = require("react-redux");
+var _visibilityFilterInput = require("../visibility-filter-input/visibility-filter-input");
+var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
+function Navigation({ user  }, { visibilityFilter  }) {
+    const onLoggedOut = ()=>{
+        localStorage.clear();
+        window.open("/", "_self");
+    };
+    const isAuth = ()=>{
+        if (typeof window == "undefined") return false;
+        if (localStorage.getItem("token")) return localStorage.getItem("token");
+        else return false;
+    };
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar, {
+        bg: "dark",
+        variant: "dark",
+        className: "main-nav",
+        sticky: "top",
+        expand: "lg"
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Brand, {
+        className: "navbar-logo",
+        href: "/"
+    }, "FLEXNIT"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Toggle, {
+        "aria-controls": "responsive-navbar-nav"
+    }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Collapse, {
+        id: "responsive-navbar-nav",
+        className: "justify-content-end"
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav, {
+        className: "me-auto my-2 my-lg-0 d-flex"
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
+        href: "/"
+    }, "Home"), isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown, {
+        title: "Profile"
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Item, {
+        href: `/users/${user}`
+    }, user), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Item, {
+        href: `/users/${user}/movies`
+    }, "Favorites"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Divider, null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Item, {
+        variant: "link",
+        onClick: ()=>onLoggedOut()
+    }, "Logout")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Item, null, /*#__PURE__*/ _reactDefault.default.createElement(_visibilityFilterInputDefault.default, {
+        visibilityFilter: visibilityFilter
+    })))))));
+}
+_c = Navigation;
+var _c;
+$RefreshReg$(_c, "Navigation");
+
+  $parcel$ReactRefreshHelpers$1bb2.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-redux":"2L0if","../visibility-filter-input/visibility-filter-input":"7ZxGS"}],"7ZxGS":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9bc3.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _actions = require("../../actions/actions");
+function VisibilityFilterInput(props) {
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        onChange: (e)=>props.setFilter(e.target.value)
+        ,
+        value: props.visibilityFilter,
+        placeholder: "Search"
+    }));
+}
+_c = VisibilityFilterInput;
+exports.default = _reactRedux.connect(null, {
+    setFilter: _actions.setFilter
+})(VisibilityFilterInput);
+var _c;
+$RefreshReg$(_c, "VisibilityFilterInput");
+
+  $parcel$ReactRefreshHelpers$9bc3.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","react-redux":"2L0if","react-bootstrap/Form":"5ykgY","../../actions/actions":"1Ttfj","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"8WCoL":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5f0a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5f0a.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "GenreView", ()=>GenreView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _reactRouterDom = require("react-router-dom");
+var _genreViewScss = require("./genre-view.scss");
+var _reactBootstrap = require("react-bootstrap");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+class GenreView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "getGenre", (token, genre)=>{
+            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/genres/${genre.Name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                this.setState({
+                    movies: response.data
+                });
+                console.log(response.data);
+                console.log(genre.Name);
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        this.state = {
+            movies: []
+        };
+    }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        let { genre  } = this.props;
+        if (accessToken !== null) this.getGenre(accessToken, genre);
+    }
+    render() {
+        const { genre , onBackClick  } = this.props;
+        const { movies  } = this.state;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            lg: 8,
+            md: 12
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            md: 1
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            className: "mb-4"
+        }, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
+            className: "mb-3"
+        }, genre.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            onClick: ()=>{
+                onBackClick();
+            }
+        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "mt-5 justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, genre.Name, " movies")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "text-center"
+        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, movies.length > 0 && movies.map((movie)=>{
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+                lg: 3,
+                md: 4,
+                sm: 12,
+                key: movie._id
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+                to: `/movies/${movie._id}`
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
+                variant: "top",
+                src: movie.ImagePath
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+        })))))));
+    }
+}
+
+  $parcel$ReactRefreshHelpers$5f0a.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./genre-view.scss":"3BqnD","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","axios":"iYoWk"}],"3BqnD":[function() {},{}],"ck15y":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$f8cc = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$f8cc.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DirectorView", ()=>DirectorView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _reactRouterDom = require("react-router-dom");
+var _directorViewScss = require("./director-view.scss");
+var _reactBootstrap = require("react-bootstrap");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+class DirectorView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "getDirector", (token, director)=>{
+            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/movies/directors/${director.Name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                this.setState({
+                    movies: response.data
+                });
+                console.log(response.data);
+                console.log(director.Name);
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        this.state = {
+            movies: []
+        };
+    }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        let { director  } = this.props;
+        if (accessToken !== null) this.getDirector(accessToken, director);
+    }
+    render() {
+        const { director , onBackClick  } = this.props;
+        const { movies  } = this.state;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            lg: 8,
+            md: 12
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            md: 1
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            className: "mb-4"
+        }, director.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+            className: "mb-3"
+        }, director.Birth), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
+            className: "mb-3"
+        }, director.Bio), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            onClick: ()=>{
+                onBackClick();
+            }
+        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "mt-5 justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Movies by ", director.Name)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "text-center"
+        }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, movies.length > 0 && movies.map((movie)=>{
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+                lg: 3,
+                md: 4,
+                sm: 12,
+                key: movie._id
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+                to: `/movies/${movie._id}`
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
+                variant: "top",
+                src: movie.ImagePath
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+        })))))));
+    }
+}
+
+  $parcel$ReactRefreshHelpers$f8cc.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./director-view.scss":"hWS1b","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","axios":"iYoWk"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$58c6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$58c6.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfileView", ()=>ProfileView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _reactRedux = require("react-redux");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _profileViewScss = require("./profile-view.scss");
+var _reactRouterDom = require("react-router-dom");
+var _reactBootstrap = require("react-bootstrap");
+var _actions = require("../../actions/actions");
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+class ProfileView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "editUser", (e)=>{
+            e.preventDefault();
+            const Username = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            _axiosDefault.default.put(`https://flexnitdb.herokuapp.com/users/${Username}`, this.props, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                let formattedDate = null;
+                let anyBirthday = response.data.Birthday;
+                if (anyBirthday) formattedDate = anyBirthday.slice(0, 10);
+                this.props.updateUser({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: formattedDate
+                });
+                localStorage.setItem('user', this.state.Username);
+                alert("Profile updated successfully!");
+                window.open(`/`, '_self');
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+    }
+    componentDidMount() {
+        this.getUser();
+    }
+    getUser() {
+        const Username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            let formattedDate = null;
+            let anyBirthday = response.data.Birthday;
+            if (anyBirthday) formattedDate = anyBirthday.slice(0, 10);
+            this.props.setUser({
+                Username: response.data.Username,
+                Password: response.data.Password,
+                Email: response.data.Email,
+                Birthday: formattedDate
+            });
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    //Performs a DELETE request on the API to remove the specified user from the database
+    onDeleteUser() {
+        const Username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+            alert("Profile deleted, goodbye!");
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.open('/', '_self');
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    setUsername(value) {
+        this.setState({
+            Username: value
+        });
+    }
+    setPassword(value) {
+        this.setState({
+            Password: value
+        });
+    }
+    setEmail(value) {
+        this.setState({
+            Email: value
+        });
+    }
+    setBirthday(value) {
+        this.setState({
+            Birthday: value
+        });
+    }
+    render() {
+        const { onBackClick  } = this.props;
+        const { Username , Email , Birthday  } = this.props.user || {
+        };
+        if (!Username) return null;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "backButton"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            variant: "outline-primary",
+            onClick: ()=>{
+                onBackClick(null);
+            }
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, "Hello, ", Username), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+            className: "mb-2 text-muted"
+        }, "To update your information, just rewrite the ones you wish to change and hit Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form, {
+            className: "update-form",
+            onSubmit: (e)=>this.editUser(e, this.Username, this.Password, this.Email, this.Birthday)
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
+            className: "mb-3"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Username"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+            type: "text",
+            name: "Username",
+            placeholder: "New Username",
+            value: Username,
+            onChange: (e)=>this.setUsername(e.target.value)
+            ,
+            required: true
+        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
+            className: "mb-3"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+            type: "password",
+            placeholder: "New Password",
+            value: "",
+            onChange: (e)=>this.setPassword(e.target.value)
+            ,
+            required: true
+        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
+            className: "mb-3"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+            type: "email",
+            placeholder: "Enter Email",
+            value: Email,
+            onChange: (e)=>this.setEmail(e.target.value)
+            ,
+            required: true
+        })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
+            className: "mb-3"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+            type: "date",
+            value: Birthday,
+            onChange: (e)=>this.setBirthday(e.target.value)
+        })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "mt-3"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            variant: "success",
+            type: "submit",
+            onClick: this.editUser
+        }, "Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            className: "ml-3",
+            variant: "danger",
+            onClick: ()=>this.onDeleteUser()
+        }, "Delete User")))))));
+    }
+}
+const mapStateToProps = (state)=>{
+    return {
+        user: state.user
+    };
+};
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        setUser: (user)=>{
+            dispatch(_actions.setUser(user));
+        },
+        updateUser: (user)=>{
+            dispatch(_actions.updateUser(user));
+        }
+    };
+};
+exports.default = _reactRedux.connect(mapStateToProps, mapDispatchToProps)(ProfileView);
+ProfileView.propTypes = {
+    movies: _propTypesDefault.default.arrayOf(_propTypesDefault.default.shape({
+        Title: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired,
+        ImagePath: _propTypesDefault.default.string.isRequired,
+        Genre: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Description: _propTypesDefault.default.string.isRequired
+        }).isRequired,
+        Director: _propTypesDefault.default.shape({
+            Bio: _propTypesDefault.default.string.isRequired,
+            Birth: _propTypesDefault.default.string.isRequired,
+            Name: _propTypesDefault.default.string.isRequired
+        }).isRequired
+    })).isRequired,
+    onBackClick: _propTypesDefault.default.func.isRequired
+};
+
+  $parcel$ReactRefreshHelpers$58c6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./profile-view.scss":"gb0ga","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","react-router-dom":"kjA5T","../../actions/actions":"1Ttfj","react-redux":"2L0if"}],"gb0ga":[function() {},{}],"jg6rA":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$3734 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$3734.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FavoritesView", ()=>FavoritesView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _favoritesViewScss = require("./favorites-view.scss");
+var _reactRouterDom = require("react-router-dom");
+var _reactBootstrap = require("react-bootstrap");
+function _defineProperty(obj, key, value) {
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+class FavoritesView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        _defineProperty(this, "getUser", (token)=>{
+            const Username = localStorage.getItem('user');
+            _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                this.setState({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    Favorites: response.data.Favorites
+                });
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        _defineProperty(this, "onRemoveFavorite", (e, movie)=>{
+            e.preventDefault();
+            const Username = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            _axiosDefault.default.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${movie._id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response)=>{
+                console.log(response);
+                alert(`'` + movie.Title + `'` + " removed from Favorites");
+                this.componentDidMount();
+            }).catch(function(error) {
+                console.log(error);
+            });
+        });
+        this.state = {
+            Username: null,
+            Password: null,
+            Email: null,
+            Birthday: null,
+            Favorites: []
+        };
+    }
+    componentDidMount() {
+        const accessToken = localStorage.getItem('token');
+        this.getUser(accessToken);
+    }
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
+        window.open('/', '_self');
+    }
+    render() {
+        const { movies , onBackClick  } = this.props;
+        const { Favorites , Username , Email , Birthday  } = this.state;
+        if (!Username) return null;
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "backButton"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            variant: "primary",
+            onClick: ()=>{
+                onBackClick(null);
+            }
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "text-center"
+        }, "No favorites yet :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+            className: "justify-content-center"
+        }, Favorites.length > 0 && movies.map((movie)=>{
+            if (movie._id === Favorites.find((fav)=>fav === movie._id
+            )) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+                lg: 3,
+                md: 4,
+                sm: 6,
+                key: movie._id
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
+                className: "img",
+                variant: "top",
+                src: movie.ImagePath
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+                className: "mb-2"
+            }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+                size: "sm",
+                variant: "danger",
+                value: movie._id,
+                onClick: (e)=>this.onRemoveFavorite(e, movie)
+            }, "Remove"))))));
+        }))))));
+    }
+}
+
+  $parcel$ReactRefreshHelpers$3734.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./favorites-view.scss":"7to4E","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"7to4E":[function() {},{}],"1kGQ5":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2519 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41544,6 +41626,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRedux = require("react-redux");
+var _visibilityFilterInput = require("../visibility-filter-input/visibility-filter-input");
+var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _movieCard = require("../movie-card/movie-card");
 const mapStateToProps = (state)=>{
     const { visibilityFilter  } = state;
@@ -41552,27 +41636,24 @@ const mapStateToProps = (state)=>{
     };
 };
 function MoviesList(props) {
-    const { movies , visibilityFilter  } = props;
-    let filteredMovies = movies;
-    if (visibilityFilter !== '') filteredMovies = movies.filter((m)=>m.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
+    const { movie , visibilityFilter  } = props;
+    let filteredMovies = movie;
+    if (visibilityFilter !== '') filteredMovies = movie.filter((m)=>m.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
-    if (!movies) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+    if (!movie) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
         className: "main-view"
     }));
-    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-        md: 12,
-        style: {
-            margin: '1em'
-        }
-    }, /*#__PURE__*/ _reactDefault.default.createElement(VisibilityFilterInput, {
-        visibilityFilter: visibilityFilter
-    })), filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-            md: 3,
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+        className: "justify-content-md-center"
+    }, filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
+            lg: 4,
+            md: 6,
+            sm: "auto",
             key: m._id
         }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
             movie: m
         }))
-    )));
+    ))));
 }
 _c = MoviesList;
 exports.default = _reactRedux.connect(mapStateToProps)(MoviesList);
@@ -41584,7 +41665,7 @@ $RefreshReg$(_c, "MoviesList");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","react-bootstrap":"h2YVd","react-redux":"2L0if","../movie-card/movie-card":"6EiBJ","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8"}],"6EiBJ":[function(require,module,exports) {
+},{"react":"6TuXu","react-bootstrap":"h2YVd","react-redux":"2L0if","../movie-card/movie-card":"6EiBJ","@parcel/transformer-js/src/esmodule-helpers.js":"kYNDr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"29Ah8","../visibility-filter-input/visibility-filter-input":"7ZxGS"}],"6EiBJ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41609,18 +41690,18 @@ var _reactBootstrap = require("react-bootstrap");
 class MovieCard extends _reactDefault.default.Component {
     render() {
         const { movie  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
-            fluid: true
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
             className: "mb-5"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
             variant: "top",
             src: movie.ImagePath
-        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, {
+            className: "text-truncate"
+        }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/movies/${movie._id}`
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             variant: "link"
-        }, "Open")))))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
+        }, "Open")))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
         );
     }
 }
@@ -42216,9 +42297,37 @@ function movies(state = [], action) {
             return state;
     }
 }
+function user(state = {
+    Username: '',
+    Password: '',
+    Email: '',
+    Birthday: '',
+    Favorites: []
+}, action) {
+    const { field , value  } = action;
+    switch(action.type){
+        case _actions.SET_USER:
+            return value;
+        case _actions.UPDATE_INPUT:
+            return {
+                ...state,
+                [field]: value
+            };
+        case _actions.UPDATE_FAVORITE:
+            return {
+                ...state,
+                [field]: [
+                    ...value
+                ]
+            };
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
-    movies
+    movies,
+    user
 });
 exports.default = moviesApp;
 

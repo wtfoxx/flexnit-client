@@ -1,7 +1,11 @@
 import React from "react";
-import { Navbar, Container, Button, Nav } from "react-bootstrap";
+import { Navbar, Container, Button, Nav, NavDropdown } from "react-bootstrap";
+import { connect } from "react-redux";
+import VisibilityFilterInput from "../visibility-filter-input/visibility-filter-input";
 
-export function Navigation({user}) {
+
+
+export function Navigation({user}, {visibilityFilter}) {
 
   const onLoggedOut = () => {
     localStorage.clear();
@@ -20,27 +24,37 @@ export function Navigation({user}) {
   };
 
   return (
+    
     <Navbar bg="dark" variant="dark" className="main-nav" sticky="top" expand="lg">
-        <Navbar.Brand className="navbar-logo" href="/">Flexnit</Navbar.Brand>
+      <Container>
+        <Navbar.Brand className="navbar-logo" href="/">FLEXNIT</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+        
+          <Nav className="me-auto my-2 my-lg-0 d-flex">
+            <Nav.Link href="/">Home</Nav.Link>
+
             {isAuth() && (
-              <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
+              <NavDropdown title="Profile">
+                <NavDropdown.Item href={`/users/${user}`}>{user}</NavDropdown.Item>
+                <NavDropdown.Item href={`/users/${user}/movies`}>Favorites</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item variant="link" onClick={() => onLoggedOut()}>Logout</NavDropdown.Item>
+              </NavDropdown>
             )}
 
-            
-            {isAuth() && (
-              <Nav.Link href={`/users/${user}/movies`}>Favorites</Nav.Link>
-            )}
-            
-            {isAuth() && (
-              <Nav.Link variant="link" onClick={() => onLoggedOut()}>Logout</Nav.Link>
-            )}
+          <Nav.Item>
+
+            <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+
+          </Nav.Item>
 
           </Nav>
         </Navbar.Collapse>
+      </Container>
     </Navbar>
+
+   
   )
 
 }

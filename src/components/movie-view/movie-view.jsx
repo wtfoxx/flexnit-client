@@ -114,7 +114,7 @@ export class MovieView extends React.Component {
                 
                 {' '} • {' '}
 
-                <Link to ={`/director/${movie.Director.Name}`}>
+                <Link to ={`/directors/${movie.Director.Name}`}>
                   <Button size='sm' variant='link'>{movie.Director.Name}</Button>
                 </Link>
 
