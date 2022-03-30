@@ -30,7 +30,7 @@ let mapStateToProps = (state) => {
   return { 
     movies: state.movies,
     user: state.user
-  }
+  };
 }
 
 class MainView extends React.Component {
@@ -57,6 +57,7 @@ class MainView extends React.Component {
     .then(response => {
       this.props.setMovies(response.data);
       //console.log(response.data);
+      console.log(this.props.movies);
     })
     .catch(function (error) {
       console.log(error);

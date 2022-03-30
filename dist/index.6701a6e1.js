@@ -22130,6 +22130,7 @@ class MainView extends _reactDefault.default.Component {
             }
         }).then((response)=>{
             this.props.setMovies(response.data); //console.log(response.data);
+            console.log(this.props.movies);
         }).catch(function(error) {
             console.log(error);
         });
@@ -41302,14 +41303,14 @@ function _defineProperty(obj, key, value) {
     else obj[key] = value;
     return obj;
 }
-const mapStateToProps = (state)=>{
+let mapStateToProps = (state)=>{
     return {
         user: state.user
     };
 };
 class ProfileView extends _reactDefault.default.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         _defineProperty(this, "editUser", (e)=>{
             e.preventDefault();
             const Username = localStorage.getItem('user');
@@ -41335,6 +41336,13 @@ class ProfileView extends _reactDefault.default.Component {
                 console.log(error);
             });
         });
+        this.state = {
+            Username: this.props.Username,
+            Password: this.props.Password,
+            Email: this.props.Email,
+            Birthday: this.props.Birthday,
+            Favorites: this.props.Favorites
+        };
     }
     //Performs a DELETE request on the API to remove the specified user from the database
     onDeleteUser() {
@@ -41375,13 +41383,12 @@ class ProfileView extends _reactDefault.default.Component {
         });
     }
     render() {
-        const { onBackClick  } = this.props;
-        const user = this.state;
+        const { onBackClick , user  } = this.props;
         const localUser = localStorage.getItem('user');
         if (!localUser) {
             console.log('boo');
             return null;
-        } else console.log(user);
+        } else console.log(this.state);
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "backButton"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
@@ -41400,7 +41407,7 @@ class ProfileView extends _reactDefault.default.Component {
             type: "text",
             name: "Username",
             placeholder: "New Username",
-            value: this.props.user.Username,
+            value: this.state.Username,
             onChange: (e)=>this.setUsername(e.target.value)
             ,
             required: true
@@ -41418,7 +41425,7 @@ class ProfileView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "email",
             placeholder: "Enter Email",
-            value: this.props.user.Email,
+            value: this.state.Email,
             onChange: (e)=>this.setEmail(e.target.value)
             ,
             required: true
@@ -41426,7 +41433,7 @@ class ProfileView extends _reactDefault.default.Component {
             className: "mb-3"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "date",
-            value: this.props.user.Birthday,
+            value: this.state.Birthday,
             onChange: (e)=>this.setBirthday(e.target.value)
         })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "mt-3"

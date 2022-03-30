@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
 import { setUser, updateUser } from '../../actions/actions';
 
-const mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
   return {
     user: state.user
   }
@@ -16,8 +16,16 @@ const mapStateToProps = (state) => {
 
 class ProfileView extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      Username: this.props.Username,
+      Password: this.props.Password,
+      Email: this.props.Email,
+      Birthday: this.props.Birthday,
+      Favorites: this.props.Favorites,
+    };
   }
 
   //Performs a PUT request on the API to edit the specified user's information
@@ -101,15 +109,14 @@ class ProfileView extends React.Component {
   }
 
   render() {
-    const { onBackClick } = this.props;
-    const user = this.state;
+    const { onBackClick, user } = this.props;
     const localUser = localStorage.getItem('user');
 
     if (!localUser) {
       console.log('boo');
       return null;
     } else {
-      console.log(user);
+      console.log(this.state);
     }
 
     return (
@@ -141,7 +148,7 @@ class ProfileView extends React.Component {
                   type="text"
                   name="Username"
                   placeholder="New Username"
-                  value={this.props.user.Username}
+                  value={this.state.Username}
                   onChange={(e) => this.setUsername(e.target.value)}
                   required
                 />
@@ -163,7 +170,7 @@ class ProfileView extends React.Component {
                 <Form.Control
                   type="email"
                   placeholder="Enter Email"
-                  value={this.props.user.Email}
+                  value={this.state.Email}
                   onChange={(e) => this.setEmail(e.target.value)}
                   required
                 />
@@ -173,7 +180,7 @@ class ProfileView extends React.Component {
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
                   type="date"
-                  value={this.props.user.Birthday}
+                  value={this.state.Birthday}
                   onChange={(e) => this.setBirthday(e.target.value)}
                 />
               </Form.Group>
