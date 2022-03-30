@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './director-view.scss'
 import { Container, Button, Card, Col, Row, CardGroup } from 'react-bootstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 
 export class DirectorView extends React.Component {
 
@@ -11,7 +13,7 @@ export class DirectorView extends React.Component {
     super();
       this.state = {
         movies: [],
-      };
+      }
   }
 
   componentDidMount(){

@@ -45,14 +45,14 @@ export class MovieView extends React.Component {
   onAddFavorite() {
     const token = localStorage.getItem('token');
     const Username = localStorage.getItem('user');
-    axios.post(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, 
+    axios.post(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movies._id}`, 
     {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
       console.log(response);
-      alert(`'` + this.props.movie.Title + `'` + " was added to your favorites! :)");
-      window.open(`/movies/${this.props.movie._id}`, '_self');
+      alert(`'` + this.props.movies.Title + `'` + " was added to your favorites! :)");
+      window.open(`/movies/${this.props.movies._id}`, '_self');
     })
     .catch(function (error) {
       console.log(error);
@@ -62,14 +62,14 @@ export class MovieView extends React.Component {
   onRemoveFavorite() {
     const token = localStorage.getItem('token');
     const Username = localStorage.getItem('user');
-    axios.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movie._id}`, 
+    axios.delete(`https://flexnitdb.herokuapp.com/users/${Username}/movies/${this.props.movies._id}`, 
     {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
       console.log(response);
-      alert(`'` + this.props.movie.Title + `'` + " was removed from your favorites!");
-      window.open(`/movies/${this.props.movie._id}`, '_self');
+      alert(`'` + this.props.movies.Title + `'` + " was removed from your favorites!");
+      window.open(`/movies/${this.props.movies._id}`, '_self');
     })
     .catch(function (error) {
       console.log(error);
@@ -77,11 +77,11 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movies, onBackClick } = this.props;
 
     const Favorites = this.state.Favorites;
     let isFavorite = false
-    if (Favorites.includes(this.props.movie._id)) {
+    if (Favorites.includes(this.props.movies._id)) {
       isFavorite = true;
     } else {
       isFavorite = false;
@@ -93,7 +93,7 @@ export class MovieView extends React.Component {
           <Card>
             <Row>
               <Col>
-                <Card.Img variant="top" src={movie.ImagePath} />
+                <Card.Img variant="top" src={movies.ImagePath} />
               </Col>
             </Row>
           </Card>
@@ -102,25 +102,25 @@ export class MovieView extends React.Component {
             <Row>
               <Col>
               <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Title>{movies.Title}</Card.Title>
 
-                <Card.Subtitle className="text-muted">{movie.Year} 
+                <Card.Subtitle className="text-muted">{movies.Year} 
                 
                 {' '} • {' '}
 
-                <Link to ={`/genres/${movie.Genre.Name}`}>
-                  <Button size='sm' variant='link'>{movie.Genre.Name}</Button>
+                <Link to ={`/genres/${movies.Genre.Name}`}>
+                  <Button size='sm' variant='link'>{movies.Genre.Name}</Button>
                 </Link> 
                 
                 {' '} • {' '}
 
-                <Link to ={`/directors/${movie.Director.Name}`}>
-                  <Button size='sm' variant='link'>{movie.Director.Name}</Button>
+                <Link to ={`/directors/${movies.Director.Name}`}>
+                  <Button size='sm' variant='link'>{movies.Director.Name}</Button>
                 </Link>
 
                 </Card.Subtitle>
 
-                <Card.Text>{movie.Description}</Card.Text>
+                <Card.Text>{movies.Description}</Card.Text>
 
                 <Button variant="primary" onClick={() => { onBackClick(); }}>
                     Back
@@ -146,7 +146,7 @@ export class MovieView extends React.Component {
 }
 
 MovieView.propTypes = {
-  movie: PropTypes.shape({
+  movies: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,

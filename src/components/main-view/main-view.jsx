@@ -14,14 +14,15 @@ import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import ProfileView from '../profile-view/profile-view';
 import LoginView from '../login-view/login-view';
+import {DirectorView} from '../director-view/director-view';
+import {GenreView} from '../genre-view/genre-view';
+import {MovieView} from '../movie-view/movie-view';
 
-import { MovieView } from '../movie-view/movie-view';
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
 import { Navigation } from '../navbar/navbar';
 import { RegistrationView } from '../registration-view/registration-view';
-import { GenreView } from '../genre-view/genre-view';
-import { DirectorView } from '../director-view/director-view';
+
 
 import { FavoritesView } from '../favorites-view/favorites-view';
 
@@ -54,6 +55,7 @@ class MainView extends React.Component {
     })
     .then(response => {
       this.props.setMovies(response.data);
+      console.log(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -94,7 +96,7 @@ class MainView extends React.Component {
       
       return (
         <Container>
-          <MoviesList movie={movies} />
+          <MoviesList movies={movies} />
         </Container>
 
       );
@@ -117,7 +119,7 @@ class MainView extends React.Component {
 
       return (
           <Col md="auto">
-            <MovieView movie={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
+            <MovieView movies={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -168,7 +170,7 @@ class MainView extends React.Component {
 
     return (
       <Router>
-        <Navigation />
+        <Navigation user={localUser} />
         <p></p>
           <Row className="main-view justify-content-md-center">
             <Routes>

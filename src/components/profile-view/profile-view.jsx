@@ -6,8 +6,15 @@ import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
 import { setUser, updateUser } from '../../actions/actions';
+
+let mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
  
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
 
   constructor() {
     super();
@@ -18,9 +25,8 @@ export class ProfileView extends React.Component {
   }
 
   //Performs a GET request on the API to get information on the specified user: ${Username}
-  getUser() {
+  getUser(token) {
     const Username = localStorage.getItem('user');
-    const token = localStorage.getItem('token')
 
     axios.get(`https://flexnitdb.herokuapp.com/users/${Username}`, 
     {
@@ -31,18 +37,20 @@ export class ProfileView extends React.Component {
       let anyBirthday =  response.data.Birthday;
       if(anyBirthday){
         formattedDate = anyBirthday.slice(0,10)
-      }
+      };
       this.props.setUser({
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
         Birthday: formattedDate
       });
+      console.log(response.data);
+
     })
     .catch(function (error) {
       console.log(error);
       });
-    };
+    }
 
   //Performs a PUT request on the API to edit the specified user's information
   editUser = (e) => {
@@ -51,7 +59,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem('token');
 
     axios.put(`https://flexnitdb.herokuapp.com/users/${Username}`,
-      this.props,
+      this.state,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -126,7 +134,7 @@ export class ProfileView extends React.Component {
 
   render() {
     const { onBackClick } = this.props;
-    const { Username, Email, Birthday } = this.props.user || {};
+    const { Username, Email, Birthday } = this.props.user;
 
     if (!Username) {
       return null;
@@ -145,7 +153,7 @@ export class ProfileView extends React.Component {
             <Form
               className="update-form"
               onSubmit={(e) =>
-                this.editUser(
+                this.updateUser(
                   e,
                   this.Username,
                   this.Password,
@@ -209,13 +217,7 @@ export class ProfileView extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
+let mapDispatchToProps = dispatch => {
   return {
     setUser: (user) => {
       dispatch(setUser(user))
@@ -245,3 +247,4 @@ ProfileView.propTypes = {
     })).isRequired,
     onBackClick: PropTypes.func.isRequired
 };
+
