@@ -7,50 +7,18 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
 import { setUser, updateUser } from '../../actions/actions';
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     user: state.user
   }
 }
 
- 
+
 class ProfileView extends React.Component {
 
   constructor() {
     super();
   }
-
-  componentDidMount() {
-    this.getUser();
-  }
-
-  //Performs a GET request on the API to get information on the specified user: ${Username}
-  getUser(token) {
-    const Username = localStorage.getItem('user');
-
-    axios.get(`https://flexnitdb.herokuapp.com/users/${Username}`, 
-    {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(response => {
-      let formattedDate = null;
-      let anyBirthday =  response.data.Birthday;
-      if(anyBirthday){
-        formattedDate = anyBirthday.slice(0,10)
-      };
-      this.props.setUser({
-        Username: response.data.Username,
-        Password: response.data.Password,
-        Email: response.data.Email,
-        Birthday: formattedDate
-      });
-      console.log(response.data);
-
-    })
-    .catch(function (error) {
-      console.log(error);
-      });
-    }
 
   //Performs a PUT request on the API to edit the specified user's information
   editUser = (e) => {
@@ -134,10 +102,14 @@ class ProfileView extends React.Component {
 
   render() {
     const { onBackClick } = this.props;
-    const { Username, Email, Birthday } = this.props.user;
+    const user = this.state;
+    const localUser = localStorage.getItem('user');
 
-    if (!Username) {
+    if (!localUser) {
+      console.log('boo');
       return null;
+    } else {
+      console.log(user);
     }
 
     return (
@@ -148,17 +120,17 @@ class ProfileView extends React.Component {
         <br />
         <Card>
           <Card.Body>
-            <Card.Title>Hello, {Username}</Card.Title>
+            <Card.Title>Hello, {localUser}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">To update your information, just rewrite the ones you wish to change and hit Update</Card.Subtitle>
             <Form
               className="update-form"
               onSubmit={(e) =>
                 this.updateUser(
                   e,
-                  this.Username,
-                  this.Password,
-                  this.Email,
-                  this.Birthday
+                  this.props.user.Username,
+                  this.props.user.Password,
+                  this.props.user.Email,
+                  this.props.user.Birthday
                 )
               }
             >
@@ -169,7 +141,7 @@ class ProfileView extends React.Component {
                   type="text"
                   name="Username"
                   placeholder="New Username"
-                  value={Username}
+                  value={this.props.user.Username}
                   onChange={(e) => this.setUsername(e.target.value)}
                   required
                 />
@@ -191,7 +163,7 @@ class ProfileView extends React.Component {
                 <Form.Control
                   type="email"
                   placeholder="Enter Email"
-                  value={Email}
+                  value={this.props.user.Email}
                   onChange={(e) => this.setEmail(e.target.value)}
                   required
                 />
@@ -201,7 +173,7 @@ class ProfileView extends React.Component {
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
                   type="date"
-                  value={Birthday}
+                  value={this.props.user.Birthday}
                   onChange={(e) => this.setBirthday(e.target.value)}
                 />
               </Form.Group>

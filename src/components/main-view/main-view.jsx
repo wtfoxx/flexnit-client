@@ -46,6 +46,7 @@ class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
+      this.getUsers(accessToken);
     }
   }
 
@@ -55,10 +56,33 @@ class MainView extends React.Component {
     })
     .then(response => {
       this.props.setMovies(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     })
     .catch(function (error) {
       console.log(error);
+    });
+  }
+
+  getUsers(token){
+    let Username = localStorage.getItem('user');
+
+    axios.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(response => {
+      let formattedDate = null;
+      let anyBirthday = response.data.Birthday;
+      if(anyBirthday){
+        formattedDate = anyBirthday.slice(0,10)
+      }
+      this.props.setUser({
+        Username: response.data.Username,
+        Password: response.data.Password,
+        Email: response.data.Email,
+        Birthday: formattedDate,
+        Favorites: response.data.Favorites,
+      })
+      //console.log(response.data);
     });
   }
 
@@ -153,7 +177,7 @@ class MainView extends React.Component {
       if (!localUser) return <div className="main-view" />;
       return (
           <Col md={6} lg={4}>
-            <ProfileView movies={movies} onBackClick={() => history.back()} />
+            <ProfileView movies={movies} user={user} onBackClick={() => history.back()} />
           </Col>
       );
     };

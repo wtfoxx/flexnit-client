@@ -22120,6 +22120,7 @@ class MainView extends _reactDefault.default.Component {
                 user: localStorage.getItem('user')
             });
             this.getMovies(accessToken);
+            this.getUsers(accessToken);
         }
     }
     getMovies(token) {
@@ -22128,10 +22129,28 @@ class MainView extends _reactDefault.default.Component {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
-            this.props.setMovies(response.data);
-            console.log(response.data);
+            this.props.setMovies(response.data); //console.log(response.data);
         }).catch(function(error) {
             console.log(error);
+        });
+    }
+    getUsers(token) {
+        let Username = localStorage.getItem('user');
+        _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            let formattedDate = null;
+            let anyBirthday = response.data.Birthday;
+            if (anyBirthday) formattedDate = anyBirthday.slice(0, 10);
+            this.props.setUser({
+                Username: response.data.Username,
+                Password: response.data.Password,
+                Email: response.data.Email,
+                Birthday: formattedDate,
+                Favorites: response.data.Favorites
+            }); //console.log(response.data);
         });
     }
     onLoggedIn(authData) {
@@ -22238,6 +22257,7 @@ class MainView extends _reactDefault.default.Component {
                 lg: 4
             }, /*#__PURE__*/ _reactDefault.default.createElement(_profileViewDefault.default, {
                 movies: movies,
+                user: user,
                 onBackClick: ()=>history.back()
             })));
         };
@@ -41282,7 +41302,7 @@ function _defineProperty(obj, key, value) {
     else obj[key] = value;
     return obj;
 }
-let mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>{
     return {
         user: state.user
     };
@@ -41314,30 +41334,6 @@ class ProfileView extends _reactDefault.default.Component {
             }).catch(function(error) {
                 console.log(error);
             });
-        });
-    }
-    componentDidMount() {
-        this.getUser();
-    }
-    getUser(token) {
-        const Username = localStorage.getItem('user');
-        _axiosDefault.default.get(`https://flexnitdb.herokuapp.com/users/${Username}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
-            let formattedDate = null;
-            let anyBirthday = response.data.Birthday;
-            if (anyBirthday) formattedDate = anyBirthday.slice(0, 10);
-            this.props.setUser({
-                Username: response.data.Username,
-                Password: response.data.Password,
-                Email: response.data.Email,
-                Birthday: formattedDate
-            });
-            console.log(response.data);
-        }).catch(function(error) {
-            console.log(error);
         });
     }
     //Performs a DELETE request on the API to remove the specified user from the database
@@ -41380,8 +41376,12 @@ class ProfileView extends _reactDefault.default.Component {
     }
     render() {
         const { onBackClick  } = this.props;
-        const { Username , Email , Birthday  } = this.props.user;
-        if (!Username) return null;
+        const user = this.state;
+        const localUser = localStorage.getItem('user');
+        if (!localUser) {
+            console.log('boo');
+            return null;
+        } else console.log(user);
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "backButton"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
@@ -41389,18 +41389,18 @@ class ProfileView extends _reactDefault.default.Component {
             onClick: ()=>{
                 onBackClick(null);
             }
-        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, "Hello, ", Username), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, null, "Hello, ", localUser), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "mb-2 text-muted"
         }, "To update your information, just rewrite the ones you wish to change and hit Update"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form, {
             className: "update-form",
-            onSubmit: (e)=>this.updateUser(e, this.Username, this.Password, this.Email, this.Birthday)
+            onSubmit: (e)=>this.updateUser(e, this.props.user.Username, this.props.user.Password, this.props.user.Email, this.props.user.Birthday)
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
             className: "mb-3"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Username"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "text",
             name: "Username",
             placeholder: "New Username",
-            value: Username,
+            value: this.props.user.Username,
             onChange: (e)=>this.setUsername(e.target.value)
             ,
             required: true
@@ -41418,7 +41418,7 @@ class ProfileView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "email",
             placeholder: "Enter Email",
-            value: Email,
+            value: this.props.user.Email,
             onChange: (e)=>this.setEmail(e.target.value)
             ,
             required: true
@@ -41426,7 +41426,7 @@ class ProfileView extends _reactDefault.default.Component {
             className: "mb-3"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "date",
-            value: Birthday,
+            value: this.props.user.Birthday,
             onChange: (e)=>this.setBirthday(e.target.value)
         })), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "mt-3"
