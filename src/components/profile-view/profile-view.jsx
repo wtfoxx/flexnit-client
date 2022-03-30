@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import './profile-view.scss';
-import { Link } from 'react-router-dom';
-import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
+import { Form, Button, Container, Card, Row, Col } from 'react-bootstrap';
 import { setUser, updateUser } from '../../actions/actions';
 
 let mapStateToProps = (state) => {
@@ -13,19 +12,25 @@ let mapStateToProps = (state) => {
   }
 }
 
-
 class ProfileView extends React.Component {
 
-  constructor(props) {
-    super(props);
+  state = {
+    Username: '',
+    Password: '',
+    Email: '',
+    Birthday: ''
+  }
 
-    this.state = {
-      Username: this.props.Username,
-      Password: this.props.Password,
-      Email: this.props.Email,
-      Birthday: this.props.Birthday,
-      Favorites: this.props.Favorites,
-    };
+  componentDidMount() {
+    if(this.props.user) {
+      const { user } = this.props;
+      this.setState({
+        Username: user.Username,
+        Password: user.Password,
+        Email: user.Email,
+        Birthday: user.Birthday
+      })
+    }
   }
 
   //Performs a PUT request on the API to edit the specified user's information
@@ -109,14 +114,12 @@ class ProfileView extends React.Component {
   }
 
   render() {
-    const { onBackClick, user } = this.props;
+    const { onBackClick } = this.props;
     const localUser = localStorage.getItem('user');
 
     if (!localUser) {
-      console.log('boo');
+      console.log('no local user');
       return null;
-    } else {
-      console.log(this.state);
     }
 
     return (
@@ -125,72 +128,90 @@ class ProfileView extends React.Component {
           <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
         </div>
         <br />
-        <Card>
-          <Card.Body>
-            <Card.Title>Hello, {localUser}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">To update your information, just rewrite the ones you wish to change and hit Update</Card.Subtitle>
-            <Form
-              className="update-form"
-              onSubmit={(e) =>
-                this.updateUser(
-                  e,
-                  this.props.user.Username,
-                  this.props.user.Password,
-                  this.props.user.Email,
-                  this.props.user.Birthday
-                )
-              }
-            >
+      <Row className='justify-content-center'>
+        <Col>
+          <Card>            
+            <Card.Header as="h5">Hello, {localUser}</Card.Header>
+            <Card.Body>
+              <Card.Text><b>Username:</b> {this.props.user.Username}</Card.Text>
+              <Card.Text><b>Email:</b> {this.props.user.Email}</Card.Text> 
+              <Card.Text><b>Birthday:</b> {this.props.user.Birthday}</Card.Text>                
+            </Card.Body>
+          </Card>
+        </Col>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="Username"
-                  placeholder="New Username"
-                  value={this.state.Username}
-                  onChange={(e) => this.setUsername(e.target.value)}
-                  required
-                />
-              </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="New Password"
-                  value={""}
-                  onChange={(e) => this.setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter Email"
-                  value={this.state.Email}
-                  onChange={(e) => this.setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
+        <Col>
+          <Card>            
+            <Card.Header as="h5">Edit your info</Card.Header>
+              <Card.Body>
+                <Form
+                  className="update-form"
+                  onSubmit={(e) =>
+                    this.updateUser(
+                      e,
+                      this.state.Username,
+                      this.state.Password,
+                      this.state.Email,
+                      this.state.Birthday
+                    )
+                  }
+                >
 
-              <Form.Group className="mb-3">
-                <Form.Label>Birthday</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={this.state.Birthday}
-                  onChange={(e) => this.setBirthday(e.target.value)}
-                />
-              </Form.Group>
-              <div className="mt-3">
-                <Button variant="success" type="submit" onClick={this.editUser}>Update</Button>
-                <Button className="ml-3" variant="danger" onClick={() => this.onDeleteUser()}>Delete User</Button>
-              </div>
-            </Form>
-              </Card.Body>
-            </Card>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="Username"
+                      placeholder="New Username"
+                      value={this.state.Username}
+                      onChange={(e) => this.setUsername(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="New Password"
+                      value={''}
+                      onChange={(e) => this.setPassword(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter Email"
+                      value={this.state.Email}
+                      onChange={(e) => this.setEmail(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Birthday</Form.Label>
+                    <Form.Control
+                      type="date"
+                      value={this.state.Birthday}
+                      onChange={(e) => this.setBirthday(e.target.value)}
+                    />
+                  </Form.Group>
+                    <div className="mt-3">
+                      <Button variant="success" type="submit" onClick={this.editUser}>Update</Button>                 
+                    </div>
+                  </Form>
+                </Card.Body>
+                <Card.Footer className='text-center'>
+                  <Button className="ml-3" variant="danger" onClick={() => this.onDeleteUser()}>Delete User</Button>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
       </Container>
     );
   }

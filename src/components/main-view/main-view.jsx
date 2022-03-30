@@ -14,17 +14,16 @@ import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import ProfileView from '../profile-view/profile-view';
 import LoginView from '../login-view/login-view';
-import {DirectorView} from '../director-view/director-view';
-import {GenreView} from '../genre-view/genre-view';
-import {MovieView} from '../movie-view/movie-view';
+import DirectorView from '../director-view/director-view';
+import GenreView from '../genre-view/genre-view';
+import MovieView from '../movie-view/movie-view';
+import Navigation from '../navbar/navbar';
+import RegistrationView from '../registration-view/registration-view';
+import FavoritesView from '../favorites-view/favorites-view';
 
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
-import { Navigation } from '../navbar/navbar';
-import { RegistrationView } from '../registration-view/registration-view';
 
-
-import { FavoritesView } from '../favorites-view/favorites-view';
 
 let mapStateToProps = (state) => {
   return { 
@@ -57,7 +56,7 @@ class MainView extends React.Component {
     .then(response => {
       this.props.setMovies(response.data);
       //console.log(response.data);
-      console.log(this.props.movies);
+      //console.log(this.props.movies);
     })
     .catch(function (error) {
       console.log(error);
@@ -81,7 +80,7 @@ class MainView extends React.Component {
         Password: response.data.Password,
         Email: response.data.Email,
         Birthday: formattedDate,
-        Favorites: response.data.Favorites,
+        Favorites: response.data.Favorites || [],
       })
       //console.log(response.data);
     });
@@ -144,7 +143,7 @@ class MainView extends React.Component {
 
       return (
           <Col md="auto">
-            <MovieView movies={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
+            <MovieView  user={user} movies={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
           </Col>
       );
     };
@@ -177,7 +176,7 @@ class MainView extends React.Component {
     let ProfileWrapper = () => {
       if (!localUser) return <div className="main-view" />;
       return (
-          <Col md={6} lg={4}>
+          <Col >
             <ProfileView movies={movies} user={user} onBackClick={() => history.back()} />
           </Col>
       );
@@ -188,7 +187,7 @@ class MainView extends React.Component {
       if (!localUser) return <div className="main-view" />;
       return (
         <Col>
-          <FavoritesView movies={movies} onBackClick={() => history.back()} />
+          <FavoritesView movies={movies} user={user} onBackClick={() => history.back()} />
         </Col>
       )
     }

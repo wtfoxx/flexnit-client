@@ -3,50 +3,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './director-view.scss'
 import { Container, Button, Card, Col, Row, CardGroup } from 'react-bootstrap';
-import axios from 'axios';
 import { connect } from 'react-redux';
 
-
-export class DirectorView extends React.Component {
-
-  constructor(){
-    super();
-      this.state = {
-        movies: [],
-      }
+let mapStateToProps = (state) => {
+  return {
+    movies: state.movies
   }
+}
 
-  componentDidMount(){
-    let accessToken = localStorage.getItem('token');
-    let { director } = this.props;
-    if (accessToken !== null) {
-      this.getDirector(accessToken, director);
-    }
-  }
-
-
-  getDirector = (token, director) => {
-
-    axios.get(`https://flexnitdb.herokuapp.com/movies/directors/${director.Name}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(response => {
-      this.setState({
-        movies: response.data
-      });
-      console.log(response.data);
-      console.log(director.Name);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
+class DirectorView extends React.Component {
 
   render() {
-    const { director, onBackClick } = this.props;
-    const { movies } = this.state;
+    const { director, onBackClick, movies } = this.props;
+    const directorsMovies = movies.filter(m => m.Director.Name === director.Name);
 
+    console.log(directorsMovies);
 
     return (
       <Container>
@@ -80,7 +51,7 @@ export class DirectorView extends React.Component {
 
                   <Row className="justify-content-center">
                     {movies.length > 0 &&
-                      movies.map((movie) => {
+                      directorsMovies.map((movie) => {
 
                       
     
@@ -112,3 +83,5 @@ export class DirectorView extends React.Component {
     );
   }
 }
+
+export default connect (mapStateToProps)(DirectorView);

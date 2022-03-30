@@ -3,9 +3,16 @@ import { Navbar, Container, Button, Nav, NavDropdown } from "react-bootstrap";
 import { connect } from "react-redux";
 import VisibilityFilterInput from "../visibility-filter-input/visibility-filter-input";
 
+let mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    movies: state.movies
+  }
+}
 
+function Navigation({visibilityFilter}) {
 
-export function Navigation({user}, {visibilityFilter}) {
+  user = localStorage.getItem('user');
 
   const onLoggedOut = () => {
     localStorage.clear();
@@ -58,3 +65,5 @@ export function Navigation({user}, {visibilityFilter}) {
   )
 
 }
+
+export default connect(mapStateToProps)(Navigation);

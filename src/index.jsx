@@ -19,7 +19,7 @@ class flexnitApplication extends React.Component {
     return (
       <Provider store={store}>
         
-          <MainView />
+          <MainView  />
      
       </Provider>
     );

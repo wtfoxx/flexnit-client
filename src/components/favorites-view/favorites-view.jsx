@@ -1,60 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import PropTypes, { func } from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './favorites-view.scss';
-import { Link } from 'react-router-dom';
-import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card, CardGroup } from 'react-bootstrap';
+
+let mapStateToProps = (state) => {
+  return {
+    movies: state.movies,
+    user: state.user
+  }
+}
 
  
-export class FavoritesView extends React.Component {
+class FavoritesView extends React.Component {
 
-  constructor() {
-    super();
-
-      this.state = {
-        Username: null,
-        Password: null,
-        Email: null,
-        Birthday: null,
-        Favorites: [],
-    };
-  }
+  state = {
+    Favorites: '' || []
+  };
+  
 
   componentDidMount() {
-    const accessToken = localStorage.getItem('token');
-    this.getUser(accessToken);
-  }
-
-  onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.setState({
-      user: null,
-    });
-    window.open('/', '_self');
-  }
-
-  //Performs a GET request on the API to get information on the specified user: ${Username}
-  getUser = (token) => {
-    const Username = localStorage.getItem('user');
-
-    axios.get(`https://flexnitdb.herokuapp.com/users/${Username}`, 
-    {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then((response) => {
+    if(this.props.user) {
+      const {user} = this.props;
       this.setState({
-        Username: response.data.Username,
-        Password: response.data.Password,
-        Email: response.data.Email,
-        Birthday: response.data.Birthday,
-        Favorites: response.data.Favorites,
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-      });
-    };
+        Favorites: user.Favorites || []
+      })
+    }
+  }
 
   //Performs a DELETE request on the API to remove a movie from the Favorites array for the specified user
   onRemoveFavorite = (e, movie) => {
@@ -70,7 +43,7 @@ export class FavoritesView extends React.Component {
     .then((response) => {
       console.log(response);
       alert(`'` + movie.Title + `'` + " removed from Favorites");
-      this.componentDidMount();
+      window.open(`/users/${Username}/movies`, '_self');
     })
     .catch(function (error) {
       console.log(error);
@@ -78,10 +51,12 @@ export class FavoritesView extends React.Component {
   };
 
   render() {
+    let localUser = localStorage.getItem('user')
     const { movies, onBackClick } = this.props;
-    const { Favorites, Username, Email, Birthday } = this.state;
+    const { Favorites } = this.state;
 
-    if (!Username) {
+    if (!localUser) {
+      console.log('no local user');
       return null;
     }
 
@@ -137,3 +112,5 @@ export class FavoritesView extends React.Component {
   }
 }
 
+
+export default connect (mapStateToProps)(FavoritesView);

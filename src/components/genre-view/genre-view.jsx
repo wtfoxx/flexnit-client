@@ -3,48 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './genre-view.scss'
 import { Container, Button, Card, Col, Row, CardGroup } from 'react-bootstrap';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
-export class GenreView extends React.Component {
-
-  constructor(){
-    super();
-      this.state = {
-        movies: [],
-      };
+let mapStateToProps = (state) => {
+  return {
+    movies: state.movies
   }
+}
 
-  componentDidMount(){
-    let accessToken = localStorage.getItem('token');
-    let { genre } = this.props;
-    if (accessToken !== null) {
-      this.getGenre(accessToken, genre);
-    }
-  }
-
-
-  getGenre = (token, genre) => {
-
-    axios.get(`https://flexnitdb.herokuapp.com/movies/genres/${genre.Name}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(response => {
-      this.setState({
-        movies: response.data
-      });
-      console.log(response.data);
-      console.log(genre.Name);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
+class GenreView extends React.Component {
 
   render() {
-    const { genre, onBackClick } = this.props;
-    const { movies } = this.state;
-
+    const { onBackClick, genre, movies } = this.props;
+    const genreMovies = movies.filter(m => m.Genre.Name === genre.Name);
 
     return (
       <Container>
@@ -77,7 +48,7 @@ export class GenreView extends React.Component {
 
                   <Row className="justify-content-center">
                     {movies.length > 0 &&
-                      movies.map((movie) => {
+                      genreMovies.map((movie) => {
 
                       
     
@@ -109,3 +80,5 @@ export class GenreView extends React.Component {
     );
   }
 }
+
+export default connect (mapStateToProps)(GenreView);

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { SET_FILTER, SET_MOVIES, SET_USER, UPDATE_USER, UPDATE_FAVORITE } from "../actions/actions";
+import { SET_FILTER, SET_MOVIES, SET_USER, UPDATE_USER } from "../actions/actions";
 
 function visibilityFilter(state = '', action) {
   switch (action.type) {
@@ -43,11 +43,6 @@ function user(
           [field]: value
         };
 
-      case UPDATE_FAVORITE:
-        return {
-          ...state,
-          [field]: [...value]
-        };
       default:
         return state;
     } 

@@ -3,8 +3,15 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import './registration-view.scss';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-export function RegistrationView(props) {
+mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+function RegistrationView() {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
@@ -108,6 +115,8 @@ export function RegistrationView(props) {
     </Container>
     );
 }
+
+export default connect (mapStateToProps)(RegistrationView);
 
 RegistrationView.propTypes = {
     register: PropTypes.shape({

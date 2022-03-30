@@ -2,7 +2,6 @@ export const SET_MOVIES = 'SET_MOVIES';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
-export const UPDATE_FAVORITE = 'UPDATE_FAVORITE';
 
 export function setMovies(value) {
   return { type: SET_MOVIES, value };
@@ -17,12 +16,8 @@ export function setUser(value) {
 }
 
 export function updateUser(
-  value = {Username: '', Password: '', Email: '', Birthday: '' },
+  value = {Username: '', Password: '', Email: '', Birthday: '', Favorites: '' || [] },
   field = null
 ) {
-  return { type: UPDATE_INPUT, value, field };
-}
-
-export function updateFavorite(value, field='Favorites') {
-  return { type: UPDATE_FAVORITE, value, field };
+  return { type: UPDATE_USER, value, field };
 }
