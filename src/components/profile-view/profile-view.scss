@@ -1,0 +1,30 @@
+$lighter-black: #0F0F0F;
+$dark-grey: #1b1b1b; 
+$light-grey: lighten($dark-grey, 10%);
+$lighter-grey: lighten($dark-grey, 50%);
+$blue: #14213D;
+$lighter-blue: lighten($blue, 40%);
+$red: #8E1616;
+$lighter-red: lighten($red, 20%);
+$darker-red: darken($red, 10%);
+$yellow: #FCA311;
+$darker-yellow: darken($yellow, 10%);
+$platinum: #E5E5E5;
+$white: #fff;
+
+
+.pv-override .form-control {
+  background-color: $platinum !important;
+  color: $lighter-black !important;
+  border-color: $light-grey !important;
+}
+
+.pv-override .card-header {
+  background-color: $red;
+  border-color: $darker-red;
+}
+
+.pv-override .card-footer {
+  background-color: $dark-grey;
+  
+}

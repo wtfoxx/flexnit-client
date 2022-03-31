@@ -63,7 +63,7 @@ class FavoritesView extends React.Component {
     return (
       <Container> 
         <div className="backButton">
-          <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+          <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
         </div>
         <br />
           
@@ -73,7 +73,7 @@ class FavoritesView extends React.Component {
             </Row>
 
             
-              <Card.Body>
+              <Card.Body className='favs-override'>
                 {Favorites.length === 0 && (
                   <div className="text-center">No favorites yet :(</div>
                 )}
@@ -87,14 +87,16 @@ class FavoritesView extends React.Component {
                         <Col lg={3} md={4} sm={6} key={movie._id}>
                           <CardGroup>
                             <Card>
+                              
                               <Card.Img className="img" variant="top" src={movie.ImagePath} />
+                              <Card.ImgOverlay>
                               <Card.Body>
-                                <Card.Subtitle className="mb-2">
-                                    {movie.Title}
-                                </Card.Subtitle>
+
+                                <Button size="sm" className="card-text" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove</Button>
                     
-                                <Button size="sm" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove</Button>
+                                
                               </Card.Body>
+                              </Card.ImgOverlay>
                             </Card>
                           </CardGroup>
                         </Col>

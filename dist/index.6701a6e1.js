@@ -22279,8 +22279,9 @@ class MainView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/ _reactDefault.default.createElement(_navbarDefault.default, {
             user: localUser
         }), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
-            className: "main-view justify-content-md-center"
+            className: "justify-content-center"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
+            className: "main-view",
             exact: true,
             path: "/",
             element: /*#__PURE__*/ _reactDefault.default.createElement(MainWrapper, null)
@@ -40713,10 +40714,19 @@ class MovieView extends _reactDefault.default.Component {
         let isFavorite = false;
         if (user.Favorites.includes(movies._id)) isFavorite = true;
         else isFavorite = false;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "backButton"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "outline-primary",
+            onClick: ()=>{
+                onBackClick();
+            }
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
             variant: "top",
             src: movies.ImagePath
-        })))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, null, movies.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Subtitle, {
+        })), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, {
+            as: "h1"
+        }, movies.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Subtitle, {
             className: "text-muted"
         }, movies.Year, ' ', " \u2022 ", ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/genres/${movies.Genre.Name}`
@@ -40728,20 +40738,15 @@ class MovieView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             size: "sm",
             variant: "link"
-        }, movies.Director.Name))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movies.Description), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "primary",
-            onClick: ()=>{
-                onBackClick();
-            }
-        }, "Back"), ' ', isFavorite ? /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+        }, movies.Director.Name))), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, null, movies.Description), ' ', isFavorite ? /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             variant: "danger",
             value: movies._id,
             onClick: (e)=>this.onRemoveFavorite(e)
         }, "Remove favorite") : /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "warning",
+            variant: "success",
             value: movies._id,
             onClick: (e)=>this.onAddFavorite(e)
-        }, "Add favorite"))))))));
+        }, "Add favorite"))))));
     }
 }
 MovieView.propTypes = {
@@ -40811,7 +40816,7 @@ function Navigation({ visibilityFilter  }) {
     }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Brand, {
         className: "navbar-logo",
         href: "/"
-    }, "FLEXNIT"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Toggle, {
+    }, /*#__PURE__*/ _reactDefault.default.createElement("b", null, "FLEXNIT")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Toggle, {
         "aria-controls": "responsive-navbar-nav"
     }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Navbar.Collapse, {
         id: "responsive-navbar-nav",
@@ -40821,7 +40826,8 @@ function Navigation({ visibilityFilter  }) {
     }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
         href: "/"
     }, "Home"), isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown, {
-        title: "Profile"
+        title: "Profile",
+        className: "mr-3"
     }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Item, {
         href: `/users/${user}`
     }, user), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown.Item, {
@@ -41104,19 +41110,23 @@ class GenreView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
             lg: 8,
             md: 12
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
-            md: 1
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
-            className: "mb-4"
-        }, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
-            className: "mb-3"
-        }, genre.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+        }, /*#__PURE__*/ _reactDefault.default.createElement("div", null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            variant: "outline-primary",
             onClick: ()=>{
                 onBackClick();
             }
-        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            md: 1
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            as: "h3",
+            className: "mb-4"
+        }, genre.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
+            className: "mb-3"
+        }, genre.Description))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "mt-5 justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, genre.Name, " movies")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, genre.Name, " movies")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            className: "genre-override"
+        }, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "text-center"
         }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "justify-content-center"
@@ -41131,7 +41141,9 @@ class GenreView extends _reactDefault.default.Component {
             }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
                 variant: "top",
                 src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.ImgOverlay, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+                className: "card-text"
+            }, movie.Title, " (", movie.Year, ")"))))))));
         })))))));
     }
 }
@@ -41175,21 +41187,25 @@ class DirectorView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
             lg: 8,
             md: 12
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+        }, /*#__PURE__*/ _reactDefault.default.createElement("div", null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            variant: "outline-primary",
+            onClick: ()=>{
+                onBackClick();
+            }
+        }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
             md: 1
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Title, {
+            as: "h3",
             className: "mb-4"
         }, director.Name), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
             className: "mb-3"
         }, director.Birth), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, {
             className: "mb-3"
-        }, director.Bio), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            onClick: ()=>{
-                onBackClick();
-            }
-        }, "Back"))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
+        }, director.Bio))))), /*#__PURE__*/ _reactDefault.default.createElement("p", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "mt-5 justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Movies by ", director.Name)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Movies by ", director.Name)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            className: "director-override"
+        }, movies.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "text-center"
         }, "No movies :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "justify-content-center"
@@ -41204,7 +41220,9 @@ class DirectorView extends _reactDefault.default.Component {
             }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
                 variant: "top",
                 src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, null, movie.Title)))))));
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.ImgOverlay, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
+                className: "card-text"
+            }, movie.Title, " (", movie.Year, ")"))))))));
         })))))));
     }
 }
@@ -41340,10 +41358,13 @@ class ProfileView extends _reactDefault.default.Component {
             console.log('no local user');
             return null;
         }
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, {
+            className: "pv-override"
+        }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "backButton"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
             variant: "outline-primary",
+            className: "ml-3",
             onClick: ()=>{
                 onBackClick(null);
             }
@@ -41515,13 +41536,15 @@ class FavoritesView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "backButton"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
-            variant: "primary",
+            variant: "outline-primary",
             onClick: ()=>{
                 onBackClick(null);
             }
         }, "Back")), /*#__PURE__*/ _reactDefault.default.createElement("br", null), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "justify-content-center"
-        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        }, /*#__PURE__*/ _reactDefault.default.createElement("h4", null, "Your favorites")), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, {
+            className: "favs-override"
+        }, Favorites.length === 0 && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "text-center"
         }, "No favorites yet :("), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Row, {
             className: "justify-content-center"
@@ -41536,14 +41559,13 @@ class FavoritesView extends _reactDefault.default.Component {
                 className: "img",
                 variant: "top",
                 src: movie.ImagePath
-            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Subtitle, {
-                className: "mb-2"
-            }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+            }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.ImgOverlay, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
                 size: "sm",
+                className: "card-text",
                 variant: "danger",
                 value: movie._id,
                 onClick: (e)=>this.onRemoveFavorite(e, movie)
-            }, "Remove"))))));
+            }, "Remove")))))));
         }))))));
     }
 }
@@ -41631,18 +41653,23 @@ var _reactBootstrap = require("react-bootstrap");
 class MovieCard extends _reactDefault.default.Component {
     render() {
         const { movie  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
+        return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+            to: `/movies/${movie._id}`,
+            className: "mv-override"
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
             className: "mb-5"
         }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
             variant: "top",
+            className: "card-img",
             src: movie.ImagePath
-        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, {
-            className: "text-truncate"
-        }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-            to: `/movies/${movie._id}`
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "link"
-        }, "Open")))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
+        }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.ImgOverlay, null, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, {
+            className: "card-text mb-4"
+        }, movie.Title, " (", movie.Year, ")"), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, {
+            style: {
+                fontSize: 14
+            },
+            className: "card-text text-muted"
+        }, movie.Genre.Name)))) //<div className="movie-card" onClick={() => {onMovieClick(movie); }}>{movie.Title}</div>
         );
     }
 }

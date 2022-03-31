@@ -176,7 +176,7 @@ class MainView extends React.Component {
     let ProfileWrapper = () => {
       if (!localUser) return <div className="main-view" />;
       return (
-          <Col >
+          <Col>
             <ProfileView movies={movies} user={user} onBackClick={() => history.back()} />
           </Col>
       );
@@ -196,10 +196,10 @@ class MainView extends React.Component {
       <Router>
         <Navigation user={localUser} />
         <p></p>
-          <Row className="main-view justify-content-md-center">
+          <Row  className='justify-content-center'>
             <Routes>
 
-              <Route exact path="/" element={<MainWrapper />} />
+              <Route className="main-view" exact path="/" element={<MainWrapper />} />
 
               <Route path="/register" element={<RegisterWrapper />} />
 

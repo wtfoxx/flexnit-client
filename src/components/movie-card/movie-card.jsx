@@ -13,17 +13,17 @@ export class MovieCard extends React.Component {
 
     return (
 
-        
-          <Card className="mb-5">
-                <Card.Img variant="top" src={movie.ImagePath} />
-            <Card.Body>
-              <Card.Title className="text-truncate">{movie.Title}</Card.Title>
-              <Link to={`/movies/${movie._id}`}>
-                <Button variant="link">Open</Button>
-              </Link>
-            </Card.Body>
-          </Card>
-       
+      <Link to={`/movies/${movie._id}`} className="mv-override">
+        <Card className="mb-5">
+         
+          <Card.Img variant="top" className="card-img" src={movie.ImagePath} />  
+           
+          <Card.ImgOverlay>
+            <Card.Title className="card-text mb-4">{movie.Title} ({movie.Year})</Card.Title>
+            <Card.Text style={{fontSize: 14}} className="card-text text-muted">{movie.Genre.Name}</Card.Text>    
+          </Card.ImgOverlay>
+        </Card>
+      </Link>
  
 
 

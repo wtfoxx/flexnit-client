@@ -75,20 +75,28 @@ class MovieView extends React.Component {
 
     return (
       <Container>
+        <div className='backButton'>
+          <Button variant="outline-primary" onClick={() => { onBackClick(); }}>
+                      Back
+          </Button>
+        </div>
+        <br />
+ 
         <CardGroup>
           <Card>
-            <Row>
-              <Col>
+
+           
                 <Card.Img variant="top" src={movies.ImagePath} />
-              </Col>
-            </Row>
+              
+
           </Card>
 
           <Card>
-            <Row>
-              <Col>
+
+       
+              
               <Card.Body>
-                <Card.Title>{movies.Title}</Card.Title>
+                <Card.Title as="h1">{movies.Title}</Card.Title>
 
                 <Card.Subtitle className="text-muted">{movies.Year} 
                 
@@ -108,22 +116,20 @@ class MovieView extends React.Component {
 
                 <Card.Text>{movies.Description}</Card.Text>
 
-                <Button variant="primary" onClick={() => { onBackClick(); }}>
-                    Back
-                </Button>
+          
                 {' '}
                 
                 {
                   isFavorite ? (
                     <Button variant="danger" value={movies._id} onClick={(e) => this.onRemoveFavorite(e)}>Remove favorite</Button>
                   ) : (
-                    <Button variant="warning" value={movies._id} onClick={(e) => this.onAddFavorite(e)}>Add favorite</Button>
+                    <Button variant="success" value={movies._id} onClick={(e) => this.onAddFavorite(e)}>Add favorite</Button>
                   )
                 }
 
               </Card.Body>
-              </Col>
-            </Row>
+          
+         
           </Card>
         </CardGroup>
       </Container>

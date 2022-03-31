@@ -34,7 +34,7 @@ function Navigation({visibilityFilter}) {
     
     <Navbar bg="dark" variant="dark" className="main-nav" sticky="top" expand="lg">
       <Container>
-        <Navbar.Brand className="navbar-logo" href="/">FLEXNIT</Navbar.Brand>
+        <Navbar.Brand className="navbar-logo" href="/"><b>FLEXNIT</b></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         
@@ -42,7 +42,7 @@ function Navigation({visibilityFilter}) {
             <Nav.Link href="/">Home</Nav.Link>
 
             {isAuth() && (
-              <NavDropdown title="Profile">
+              <NavDropdown title="Profile" className="mr-3">
                 <NavDropdown.Item href={`/users/${user}`}>{user}</NavDropdown.Item>
                 <NavDropdown.Item href={`/users/${user}/movies`}>Favorites</NavDropdown.Item>
                 <NavDropdown.Divider />

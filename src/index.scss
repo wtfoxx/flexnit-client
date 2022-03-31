@@ -1,6 +1,102 @@
-$color: pink;
+$lighter-black: #0F0F0F;
+$dark-grey: #1b1b1b; 
+$light-grey: lighten($dark-grey, 10%);
+$lighter-grey: lighten($dark-grey, 50%);
+$blue: #14213D;
+$lighter-blue: lighten($blue, 40%);
+$red: #8E1616;
+$lighter-red: lighten($red, 10%);
+$darker-red: darken($red, 10%);
+$yellow: #FCA311;
+$darker-yellow: darken($yellow, 10%);
+$platinum: #E5E5E5;
+$white: #fff;
 
-.flexnit {
-  color: $color;
+.body {
+  background-color: $lighter-black;
+  color: $platinum;
 }
 
+.bs-override .card {
+  background-color: $dark-grey;
+  color: $platinum;
+  border: 1px solid $dark-grey;
+  
+}
+
+.bs-override .navbar {
+  background-color: black !important;
+  box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1);
+}
+
+.bs-override .nav-link {
+  color: $platinum !important;
+}
+
+.bs-override .dropdown-menu {
+  color: $platinum;
+  background-color: $lighter-black;
+  box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1) ;
+}
+
+.bs-override .dropdown-item {
+  color: $platinum;
+}
+
+.dropdown-item:hover {
+  background-color: $lighter-black !important;
+  color: $platinum !important;
+}
+
+.dropdown-divider {
+  border-top: 1px solid #1B1B1B !important;
+}
+
+.bs-override .btn-success {
+  background-color: $red !important;
+  border-color: $darker-red !important;
+  color: $platinum !important;
+}
+
+.bs-override .btn-success:hover {
+  background-color: $lighter-red !important;
+  border-color: $darker-red !important;
+  color: $platinum !important;
+}
+
+.bs-override .btn-danger{
+  background-color: $lighter-black;
+  border-color: $yellow;
+  color: $yellow;
+}
+
+.bs-override .btn-danger:hover{
+  background-color: $yellow;
+  border-color: $darker-yellow;
+  color: $lighter-black;
+}
+
+.bs-override .btn-outline-primary {
+  border-color: $lighter-blue;
+  color: $lighter-blue;
+}
+
+.bs-override .btn-outline-primary:hover {
+  background-color: $lighter-blue;
+  border-color: $lighter-blue;
+  color: $platinum;
+}
+
+.form-control {
+  background-color: $lighter-black !important;
+  border-color: $dark-grey !important;
+}
+
+.form-control:focus {
+  border-color: $darker-red !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
+
+.bs-override .navbar-logo {
+  color: $red !important;
+}

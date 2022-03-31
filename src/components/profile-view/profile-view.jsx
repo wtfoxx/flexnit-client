@@ -123,12 +123,13 @@ class ProfileView extends React.Component {
     }
 
     return (
-      <Container> 
-        <div className="backButton">
-          <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
+      <Container className="pv-override"> 
+              <div className="backButton">
+          <Button variant="outline-primary" className="ml-3" onClick={() => { onBackClick(null); }}>Back</Button>
         </div>
         <br />
       <Row className='justify-content-center'>
+        
         <Col>
           <Card>            
             <Card.Header as="h5">Hello, {localUser}</Card.Header>

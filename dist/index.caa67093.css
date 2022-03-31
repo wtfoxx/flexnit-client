@@ -1,26 +1,207 @@
-.flexnit {
-  color: pink;
+.body {
+  background-color: #0F0F0F;
+  color: #E5E5E5;
+}
+
+.bs-override .card {
+  background-color: #1b1b1b;
+  color: #E5E5E5;
+  border: 1px solid #1b1b1b;
+}
+
+.bs-override .navbar {
+  background-color: black !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bs-override .nav-link {
+  color: #E5E5E5 !important;
+}
+
+.bs-override .dropdown-menu {
+  color: #E5E5E5;
+  background-color: #0F0F0F;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bs-override .dropdown-item {
+  color: #E5E5E5;
+}
+
+.dropdown-item:hover {
+  background-color: #0F0F0F !important;
+  color: #E5E5E5 !important;
+}
+
+.dropdown-divider {
+  border-top: 1px solid #1B1B1B !important;
+}
+
+.bs-override .btn-success {
+  background-color: #8E1616 !important;
+  border-color: #620f0f !important;
+  color: #E5E5E5 !important;
+}
+
+.bs-override .btn-success:hover {
+  background-color: #ba1d1d !important;
+  border-color: #620f0f !important;
+  color: #E5E5E5 !important;
+}
+
+.bs-override .btn-danger {
+  background-color: #0F0F0F;
+  border-color: #FCA311;
+  color: #FCA311;
+}
+
+.bs-override .btn-danger:hover {
+  background-color: #FCA311;
+  border-color: #d78703;
+  color: #0F0F0F;
+}
+
+.bs-override .btn-outline-primary {
+  border-color: #567ac7;
+  color: #567ac7;
+}
+
+.bs-override .btn-outline-primary:hover {
+  background-color: #567ac7;
+  border-color: #567ac7;
+  color: #E5E5E5;
+}
+
+.form-control {
+  background-color: #0F0F0F !important;
+  border-color: #1b1b1b !important;
+}
+
+.form-control:focus {
+  border-color: #620f0f !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
+
+.bs-override .navbar-logo {
+  color: #8E1616 !important;
 }
 .flexnit {
   color: pink;
 }
 
 .row {
-  display: flex;
   flex-wrap: wrap;
-}
-.flexnit {
-  color: pink;
-}
-.flexnit {
-  color: pink;
+  margin: 0 !important;
 }
 .flexnit {
   color: pink;
 }
 
+.flexnit {
+  color: pink;
+}
+.genre-override .card:hover .card-text {
+  opacity: 100%;
+}
+.genre-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.genre-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.genre-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.director-override .card:hover .card-text {
+  opacity: 100%;
+}
+.director-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.director-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.director-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.pv-override .form-control {
+  background-color: #E5E5E5 !important;
+  color: #0F0F0F !important;
+  border-color: #353535 !important;
+}
 
+.pv-override .card-header {
+  background-color: #8E1616;
+  border-color: #620f0f;
+}
 
-
-
+.pv-override .card-footer {
+  background-color: #1b1b1b;
+}
+.favs-override .card:hover .card-text {
+  opacity: 100%;
+}
+.favs-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.favs-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.favs-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 70px;
+  left: 70px;
+  float: bottom;
+}
+.mv-override .card {
+  transition: all 0.5s ease;
+}
+.mv-override .card:hover {
+  transform: scale(1.1);
+}
+.mv-override .card:hover .card-text {
+  opacity: 100%;
+}
+.mv-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.mv-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.mv-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  left: 30px;
+  float: bottom;
+}
 /*# sourceMappingURL=index.caa67093.css.map */

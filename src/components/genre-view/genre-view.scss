@@ -1,0 +1,48 @@
+$lighter-black: #0F0F0F;
+$dark-grey: #1b1b1b; 
+$light-grey: lighten($dark-grey, 10%);
+$lighter-grey: lighten($dark-grey, 50%);
+$blue: #14213D;
+$lighter-blue: lighten($blue, 40%);
+$red: #8E1616;
+$lighter-red: lighten($red, 10%);
+$darker-red: darken($red, 10%);
+$yellow: #FCA311;
+$darker-yellow: darken($yellow, 10%);
+$platinum: #E5E5E5;
+$white: #fff;
+
+.genre-override {
+
+  .card:hover {
+ 
+    .card-text {
+
+      opacity: 100%;
+    } 
+  }
+
+  .card-img-overlay {
+    transition: all 0.5s ease-in-out;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(255, 0, 0, 0) 100%);
+    opacity: 0%;
+    
+  }
+
+  .card-img-overlay:hover {
+    
+    background: linear-gradient(0deg, rgb(0, 0, 0) 20%, rgb(255, 0, 0, 0) 100%) !important;
+    opacity: 80%;
+    
+  }
+
+  .card-text {
+    opacity: 0;
+    transition: all 0.5s ease;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    float: bottom;
+  }
+}

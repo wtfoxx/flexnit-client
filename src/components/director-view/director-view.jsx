@@ -21,16 +21,20 @@ class DirectorView extends React.Component {
 
     return (
       <Container>
-
+        
           <Col>
+          
             <Row className='justify-content-center'>
               <Col lg={8} md={12}>
+                <div>
+                  <Button variant='outline-primary' onClick={() => { onBackClick(); }}>Back</Button>
+                </div>
+                <br />
                 <Card>
                   <Card.Body md={1}>
-                    <Card.Title className='mb-4'>{director.Name}</Card.Title>
+                    <Card.Title as="h3" className='mb-4'>{director.Name}</Card.Title>
                     <Card.Subtitle className='mb-3'>{director.Birth}</Card.Subtitle>
                     <Card.Text className='mb-3'>{director.Bio}</Card.Text>
-                    <Button onClick={() => { onBackClick(); }}>Back</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -44,7 +48,7 @@ class DirectorView extends React.Component {
               </Row>
 
               
-                <Card.Body>
+                <Card.Body className='director-override'>
                   {movies.length === 0 && (
                     <div className="text-center">No movies :(</div>
                   )}
@@ -61,11 +65,13 @@ class DirectorView extends React.Component {
                               <Link to={`/movies/${movie._id}`}>
                                 <Card>
                                   <Card.Img variant="top" src={movie.ImagePath} />
-                                  <Card.Body>
-                                    <Card.Subtitle>
-                                        {movie.Title}
-                                    </Card.Subtitle>
-                                  </Card.Body>
+                                  <Card.ImgOverlay>
+                                    <Card.Body>
+                                      <Card.Subtitle className='card-text'>
+                                          {movie.Title} ({movie.Year})
+                                      </Card.Subtitle>
+                                    </Card.Body>
+                                    </Card.ImgOverlay>
                                 </Card>
                               </Link>
                             </CardGroup>
