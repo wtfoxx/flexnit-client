@@ -179,7 +179,10 @@
   left: 20px;
   float: bottom;
 }
-
+.card-text {
+  max-height: 650px;
+  overflow: auto;
+}
 .flexnit {
   color: pink;
 }
