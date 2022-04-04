@@ -86,17 +86,21 @@ function LoginView({ onLoggedIn }) {
               </Form.Text>
             </Form.Group>
             
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="success" type="submit" onClick={handleSubmit}>
               Submit
             </Button>
             {' '}
+          </Form>
+        </Card.Body>
+      <Card.Footer className="text-center">
+        <Card.Text>Don't have an account?</Card.Text>
             <Link to={`/register`}>
               <Button variant="secondary">
                 Register
               </Button>
             </Link>
-          </Form>
-        </Card.Body>
+            <p></p>
+            </Card.Footer>
       </Card>
     </Container>
   )

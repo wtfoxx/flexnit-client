@@ -39,10 +39,12 @@ $white: #fff;
   .card-text {
     opacity: 0;
     transition: all 0.5s ease;
+  }
+
+  .btn-fav{
     position: absolute;
     bottom: 20px;
-    right: 70px;
-    left: 70px;
-    float: bottom;
+    right: 50px;
+    left: 50px;
   }
 }

@@ -36,14 +36,14 @@ function RegistrationView() {
       setPasswordErr('Password required');
         isReq = false;
     }else if(password.length < 6){
-      setPassword('Password must be at least 6 characters long');
+      setPasswordErr('Password must be at least 6 characters long');
         isReq = false;
     }
     if(!email){
       setEmailErr('Email required');
         isReq = false;
     }else if(email.indexOf('@') === -1){
-      setEmail('Email must be valid');
+      setEmailErr('Email must be valid');
         isReq = false;
     }
     return isReq;
@@ -82,33 +82,29 @@ function RegistrationView() {
               <Form.Label>Username</Form.Label>
               <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Enter your username" />
               <Form.Text className="text-muted">      
-                {usernameErr && <p>{usernameErr}</p>}
+                {<p>usernameErr</p> && <p>{usernameErr}</p>}
               </Form.Text>
-            </Form.Group>
+            
                   
 
-            <Form.Group className="mb-3">
+            
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} minLength="6" placeholder="Must be at least 6 characters long" />
+              <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} minLength="6" placeholder="Enter password" />
               <Form.Text className="text-muted">  
-                {passwordErr && <p>{passwordErr}</p>}
+                {<p>passwordErr</p> && <p>{passwordErr}</p>}
               </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
+           
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter email" />
               <Form.Text className="text-muted">    
-                {emailErr && <p>{emailErr}</p>}
+                {<p>emailErr</p> && <p>{emailErr}</p>}
               </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
+      
               <Form.Label>Birthday</Form.Label>
               <Form.Control type="date" value={birthday} onChange={e => setBirthday(e.target.value)} placeholder="Enter birthday" />
-            </Form.Group>
+              </Form.Group>
 
-                  <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                  <Button variant="success" type="submit" onClick={handleSubmit}>Submit</Button>
                 </Form>
               </Card.Body>
             </Card>

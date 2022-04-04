@@ -970,7 +970,7 @@ _reactDomDefault.default.render(/*#__PURE__*/ _reactDefault.default.createElemen
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","react-dom":"gkWJK","./index.scss":"jUTZ8","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","./components/main-view/main-view":"2zHas","react-bootstrap/Container":"2PRIq","redux":"4d0QS","react-redux":"2L0if","./reducers/reducers":"btgQW","redux-devtools-extension":"8GWVf"}],"6TuXu":[function(require,module,exports) {
+},{"react":"6TuXu","react-dom":"gkWJK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","./components/main-view/main-view":"2zHas","react-bootstrap/Container":"2PRIq","redux":"4d0QS","react-redux":"2L0if","./reducers/reducers":"btgQW","redux-devtools-extension":"8GWVf","./index.scss":"jUTZ8"}],"6TuXu":[function(require,module,exports) {
 'use strict';
 module.exports = require('./cjs/react.development.js');
 
@@ -21921,7 +21921,7 @@ module.exports = require('./cjs/scheduler-tracing.development.js');
     exports.unstable_wrap = unstable_wrap;
 })();
 
-},{}],"jUTZ8":[function() {},{}],"JacNc":[function(require,module,exports) {
+},{}],"JacNc":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -22183,7 +22183,7 @@ class MainView extends _reactDefault.default.Component {
         let localUser = localStorage.getItem('user');
         let MainWrapper = ()=>{
             if (!localUser) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 3,
+                lg: 3,
                 sm: 12,
                 "x-sm": 12
             }, /*#__PURE__*/ _reactDefault.default.createElement(_loginViewDefault.default, {
@@ -22319,7 +22319,7 @@ exports.default = _reactRedux.connect(mapStateToProps, {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","axios":"iYoWk","./main-view.scss":"jyMAr","../login-view/login-view":"054li","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","../navbar/navbar":"63yS7","../registration-view/registration-view":"aP2YV","../genre-view/genre-view":"8WCoL","../director-view/director-view":"ck15y","../profile-view/profile-view":"2E7Aw","../favorites-view/favorites-view":"jg6rA","react-redux":"2L0if","../../actions/actions":"1Ttfj","../movies-list/movies-list":"1kGQ5"}],"iYoWk":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","../login-view/login-view":"054li","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","../navbar/navbar":"63yS7","../registration-view/registration-view":"aP2YV","../genre-view/genre-view":"8WCoL","../director-view/director-view":"ck15y","../profile-view/profile-view":"2E7Aw","../favorites-view/favorites-view":"jg6rA","react-redux":"2L0if","../../actions/actions":"1Ttfj","../movies-list/movies-list":"1kGQ5","./main-view.scss":"jyMAr"}],"iYoWk":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 
 },{"./lib/axios":"3QmO2"}],"3QmO2":[function(require,module,exports) {
@@ -23878,7 +23878,7 @@ var utils = require('./../utils');
     return utils.isObject(payload) && payload.isAxiosError === true;
 };
 
-},{"./../utils":"hOPY0"}],"jyMAr":[function() {},{}],"054li":[function(require,module,exports) {
+},{"./../utils":"hOPY0"}],"054li":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$02dd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -23967,14 +23967,16 @@ function LoginView({ onLoggedIn  }) {
     }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Text, {
         className: "text-muted"
     }, passwordErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, passwordErr))), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-        variant: "primary",
+        variant: "success",
         type: "submit",
         onClick: handleSubmit
-    }, "Submit"), ' ', /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+    }, "Submit"), ' ')), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "text-center"
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Text, null, "Don't have an account?"), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
         to: `/register`
     }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
         variant: "secondary"
-    }, "Register")))))));
+    }, "Register")), /*#__PURE__*/ _reactDefault.default.createElement("p", null)))));
 }
 _s(LoginView, "e8TUBtoz9wYgI9WX0GLrAvFh4WI=");
 _c = LoginView;
@@ -23990,7 +23992,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","./login-view.scss":"lS4BK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","axios":"iYoWk","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","react-redux":"2L0if"}],"1tgq3":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","axios":"iYoWk","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","react-redux":"2L0if","./login-view.scss":"lS4BK"}],"1tgq3":[function(require,module,exports) {
 var ReactIs = require('react-is');
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
@@ -24684,7 +24686,7 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"./lib/ReactPropTypesSecret":"lYuBM","./lib/has":"9e9z2"}],"lS4BK":[function() {},{}],"5ykgY":[function(require,module,exports) {
+},{"./lib/ReactPropTypesSecret":"lYuBM","./lib/has":"9e9z2"}],"5ykgY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -40632,7 +40634,7 @@ parcelHelpers.defineInteropFlag(exports);
 );
 var _reactDom = require("react-dom");
 
-},{"react-dom":"gkWJK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"ikZdr":[function(require,module,exports) {
+},{"react-dom":"gkWJK","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"lS4BK":[function() {},{}],"ikZdr":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3741 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40780,7 +40782,7 @@ exports.default = _reactRedux.connect(mapStateToProps)(MovieView);
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","./movie-view.scss":"kvL93","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","axios":"iYoWk","react-redux":"2L0if"}],"kvL93":[function() {},{}],"63yS7":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","axios":"iYoWk","react-redux":"2L0if","./movie-view.scss":"kvL93"}],"kvL93":[function() {},{}],"63yS7":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1bb2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40827,7 +40829,7 @@ function Navigation({ visibilityFilter  }) {
         id: "responsive-navbar-nav",
         className: "justify-content-end"
     }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav, {
-        className: "me-auto my-2 my-lg-0 d-flex"
+        className: ""
     }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Nav.Link, {
         href: "/"
     }, "Home"), isAuth() && /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.NavDropdown, {
@@ -40990,14 +40992,14 @@ function RegistrationView() {
             setPasswordErr('Password required');
             isReq = false;
         } else if (password.length < 6) {
-            setPassword('Password must be at least 6 characters long');
+            setPasswordErr('Password must be at least 6 characters long');
             isReq = false;
         }
         if (!email) {
             setEmailErr('Email required');
             isReq = false;
         } else if (email.indexOf('@') === -1) {
-            setEmail('Email must be valid');
+            setEmailErr('Email must be valid');
             isReq = false;
         }
         return isReq;
@@ -41030,20 +41032,16 @@ function RegistrationView() {
         placeholder: "Enter your username"
     }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Text, {
         className: "text-muted"
-    }, usernameErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, usernameErr))), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-        className: "mb-3"
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+    }, /*#__PURE__*/ _reactDefault.default.createElement("p", null, "usernameErr") && /*#__PURE__*/ _reactDefault.default.createElement("p", null, usernameErr)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
         type: "password",
         value: password,
         onChange: (e)=>setPassword(e.target.value)
         ,
         minLength: "6",
-        placeholder: "Must be at least 6 characters long"
+        placeholder: "Enter password"
     }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Text, {
         className: "text-muted"
-    }, passwordErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, passwordErr))), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-        className: "mb-3"
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+    }, /*#__PURE__*/ _reactDefault.default.createElement("p", null, "passwordErr") && /*#__PURE__*/ _reactDefault.default.createElement("p", null, passwordErr)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
         type: "email",
         value: email,
         onChange: (e)=>setEmail(e.target.value)
@@ -41051,15 +41049,14 @@ function RegistrationView() {
         placeholder: "Enter email"
     }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Text, {
         className: "text-muted"
-    }, emailErr && /*#__PURE__*/ _reactDefault.default.createElement("p", null, emailErr))), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Group, {
-        className: "mb-3"
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
+    }, /*#__PURE__*/ _reactDefault.default.createElement("p", null, "emailErr") && /*#__PURE__*/ _reactDefault.default.createElement("p", null, emailErr)), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Birthday"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
         type: "date",
         value: birthday,
         onChange: (e)=>setBirthday(e.target.value)
         ,
         placeholder: "Enter birthday"
     })), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
+        variant: "success",
         type: "submit",
         onClick: handleSubmit
     }, "Submit"))))));
@@ -41083,7 +41080,7 @@ $RefreshReg$(_c, "RegistrationView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","./registration-view.scss":"fr9ZP","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap":"h2YVd","axios":"iYoWk","react-redux":"2L0if"}],"fr9ZP":[function() {},{}],"8WCoL":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap":"h2YVd","axios":"iYoWk","react-redux":"2L0if","./registration-view.scss":"fr9ZP"}],"fr9ZP":[function() {},{}],"8WCoL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$5f0a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41159,7 +41156,7 @@ exports.default = _reactRedux.connect(mapStateToProps)(GenreView);
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./genre-view.scss":"3BqnD","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if"}],"3BqnD":[function() {},{}],"ck15y":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if","./genre-view.scss":"3BqnD"}],"3BqnD":[function() {},{}],"ck15y":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$f8cc = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41238,7 +41235,7 @@ exports.default = _reactRedux.connect(mapStateToProps)(DirectorView);
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","./director-view.scss":"hWS1b","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if","./director-view.scss":"hWS1b"}],"hWS1b":[function() {},{}],"2E7Aw":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$58c6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41312,9 +41309,9 @@ class ProfileView extends _reactDefault.default.Component {
             const { user  } = this.props;
             this.setState({
                 Username: user.Username,
-                Password: user.Password,
+                Password: 'Password',
                 Email: user.Email,
-                Birthday: user.Birthday
+                Birthday: ''
             });
         }
     }
@@ -41397,7 +41394,7 @@ class ProfileView extends _reactDefault.default.Component {
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Form.Control, {
             type: "password",
             placeholder: "New Password",
-            value: '',
+            value: this.state.Password,
             onChange: (e)=>this.setPassword(e.target.value)
             ,
             required: true
@@ -41465,7 +41462,7 @@ ProfileView.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./profile-view.scss":"gb0ga","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","../../actions/actions":"1Ttfj","react-redux":"2L0if"}],"gb0ga":[function() {},{}],"jg6rA":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","../../actions/actions":"1Ttfj","react-redux":"2L0if","./profile-view.scss":"gb0ga"}],"gb0ga":[function() {},{}],"jg6rA":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3734 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41557,8 +41554,8 @@ class FavoritesView extends _reactDefault.default.Component {
             if (movie._id === Favorites.find((fav)=>fav === movie._id
             )) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
                 lg: 3,
-                md: 4,
-                sm: 6,
+                md: 6,
+                className: "mb-2",
                 key: movie._id
             }, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.CardGroup, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Img, {
                 className: "img",
@@ -41566,7 +41563,7 @@ class FavoritesView extends _reactDefault.default.Component {
                 src: movie.ImagePath
             }), /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.ImgOverlay, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Button, {
                 size: "sm",
-                className: "card-text",
+                className: "card-text btn-fav",
                 variant: "danger",
                 value: movie._id,
                 onClick: (e)=>this.onRemoveFavorite(e, movie)
@@ -41581,7 +41578,7 @@ exports.default = _reactRedux.connect(mapStateToProps)(FavoritesView);
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","./favorites-view.scss":"7to4E","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if"}],"7to4E":[function() {},{}],"1kGQ5":[function(require,module,exports) {
+},{"react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-redux":"2L0if","./favorites-view.scss":"7to4E"}],"7to4E":[function() {},{}],"1kGQ5":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2519 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41701,7 +41698,7 @@ MovieCard.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","./movie-card.scss":"cF5gT","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J"}],"cF5gT":[function() {},{}],"4d0QS":[function(require,module,exports) {
+},{"react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","react-router-dom":"kjA5T","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","./movie-card.scss":"cF5gT"}],"cF5gT":[function() {},{}],"jyMAr":[function() {},{}],"4d0QS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes
@@ -42310,6 +42307,6 @@ exports.devToolsEnhancer = typeof window !== 'undefined' && window.__REDUX_DEVTO
     };
 };
 
-},{"redux":"4d0QS"}]},["2rAXy","6a0zu","dLPEP"], "dLPEP", "parcelRequirecbac")
+},{"redux":"4d0QS"}],"jUTZ8":[function() {},{}]},["2rAXy","6a0zu","dLPEP"], "dLPEP", "parcelRequirecbac")
 
 //# sourceMappingURL=index.6701a6e1.js.map

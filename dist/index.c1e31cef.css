@@ -1,3 +1,16 @@
+.card-text-bm {
+  max-height: 650px !important;
+  overflow: auto !important;
+}
+
+.pv-override .card-header {
+  background-color: #8E1616;
+  border-color: #620f0f;
+}
+
+.pv-override .card-footer {
+  background-color: #1b1b1b;
+}
 .body {
   background-color: #0F0F0F;
   color: #E5E5E5;
@@ -88,4 +101,4 @@
 .bs-override .navbar-logo {
   color: #8E1616 !important;
 }
-/*# sourceMappingURL=index.caa67093.css.map */
+/*# sourceMappingURL=index.c1e31cef.css.map */

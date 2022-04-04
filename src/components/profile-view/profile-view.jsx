@@ -26,9 +26,9 @@ class ProfileView extends React.Component {
       const { user } = this.props;
       this.setState({
         Username: user.Username,
-        Password: user.Password,
+        Password: 'Password',
         Email: user.Email,
-        Birthday: user.Birthday
+        Birthday: ''
       })
     }
   }
@@ -177,7 +177,7 @@ class ProfileView extends React.Component {
                     <Form.Control
                       type="password"
                       placeholder="New Password"
-                      value={''}
+                      value={this.state.Password}
                       onChange={(e) => this.setPassword(e.target.value)}
                       required
                     />

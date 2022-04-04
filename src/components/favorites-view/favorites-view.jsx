@@ -84,7 +84,7 @@ class FavoritesView extends React.Component {
                         movie._id === Favorites.find((fav) => fav === movie._id)
                       ) {
                       return (
-                        <Col lg={3} md={4} sm={6} key={movie._id}>
+                        <Col lg={3} md={6} className="mb-2" key={movie._id}>
                           <CardGroup>
                             <Card>
                               
@@ -92,7 +92,7 @@ class FavoritesView extends React.Component {
                               <Card.ImgOverlay>
                               <Card.Body>
 
-                                <Button size="sm" className="card-text" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove</Button>
+                                <Button size="sm" className="card-text btn-fav" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove</Button>
                     
                                 
                               </Card.Body>

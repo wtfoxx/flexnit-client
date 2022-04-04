@@ -1,0 +1,65 @@
+.genre-override .card:hover .card-text {
+  opacity: 100%;
+}
+.genre-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.genre-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.genre-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.director-override .card:hover .card-text {
+  opacity: 100%;
+}
+.director-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.director-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.director-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.favs-override .card:hover .card-text {
+  opacity: 100%;
+}
+.favs-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.favs-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.favs-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.favs-override .btn-fav {
+  position: absolute;
+  bottom: 20px;
+  right: 50px;
+  left: 50px;
+}
+/*# sourceMappingURL=index.71687790.css.map */

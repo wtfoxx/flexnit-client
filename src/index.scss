@@ -15,18 +15,20 @@ $white: #fff;
 .body {
   background-color: $lighter-black;
   color: $platinum;
+
 }
 
 .bs-override .card {
   background-color: $dark-grey;
   color: $platinum;
   border: 1px solid $dark-grey;
-  
+  box-shadow: 5px 5px 5px rgba($color: #000000, $alpha: 0.1);  
 }
 
 .bs-override .navbar {
   background-color: black !important;
-  box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1);
+  box-shadow: 5px 2px 15px rgba($color: #000000, $alpha: 0.5);
+  min-height: 4em !important;
 }
 
 .bs-override .nav-link {
@@ -36,7 +38,7 @@ $white: #fff;
 .bs-override .dropdown-menu {
   color: $platinum;
   background-color: $lighter-black;
-  box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1) ;
+  box-shadow: 5px 5px 15px rgba($color: #000000, $alpha: 0.5) ;
 }
 
 .bs-override .dropdown-item {
@@ -88,8 +90,9 @@ $white: #fff;
 }
 
 .form-control {
-  background-color: $lighter-black !important;
+  background-color: $light-grey !important;
   border-color: $dark-grey !important;
+  color: $platinum !important;
 }
 
 .form-control:focus {

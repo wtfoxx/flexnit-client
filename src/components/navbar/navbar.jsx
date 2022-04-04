@@ -38,7 +38,7 @@ function Navigation({visibilityFilter}) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         
-          <Nav className="me-auto my-2 my-lg-0 d-flex">
+          <Nav className="">
             <Nav.Link href="/">Home</Nav.Link>
 
             {isAuth() && (

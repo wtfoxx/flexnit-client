@@ -111,7 +111,7 @@ class MainView extends React.Component {
 
     let MainWrapper = () => {
       if (!localUser) return (
-        <Col md={3} sm={12} x-sm={12}>
+        <Col lg={3} sm={12} x-sm={12}>
           <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
         </Col>
       );
@@ -193,6 +193,7 @@ class MainView extends React.Component {
     }
 
     return (
+
       <Router>
         <Navigation user={localUser} />
         <p></p>
@@ -218,6 +219,7 @@ class MainView extends React.Component {
 
           </Row>
       </Router>
+
     );
   }
 }
