@@ -209,7 +209,7 @@ class MainView extends React.Component {
 
               <Route path="/directors/:name" element={<DirectorWrapper />} />
 
-              <Route path="/users/:user" element={<ProfileWrapper />} />
+              <Route path="/users/*" element={<ProfileWrapper />} />
             
               <Route path="/users/:user/movies" element={<FavoritesWrapper />} />
             </Routes>

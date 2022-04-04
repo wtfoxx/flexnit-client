@@ -93,6 +93,93 @@
   flex-wrap: wrap;
   margin: 0 !important;
 }
+.flexnit {
+  color: pink;
+}
+.card-text-bm {
+  max-height: 650px !important;
+  overflow: auto !important;
+}
+.flexnit {
+  color: pink;
+}
+.genre-override .card:hover .card-text {
+  opacity: 100%;
+}
+.genre-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.genre-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.genre-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.director-override .card:hover .card-text {
+  opacity: 100%;
+}
+.director-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.director-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.director-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  float: bottom;
+}
+.pv-override .form-control {
+  background-color: #E5E5E5 !important;
+  color: #0F0F0F !important;
+  border-color: #353535 !important;
+}
+
+.pv-override .card-header {
+  background-color: #8E1616;
+  border-color: #620f0f;
+}
+
+.pv-override .card-footer {
+  background-color: #1b1b1b;
+}
+.favs-override .card:hover .card-text {
+  opacity: 100%;
+}
+.favs-override .card-img-overlay {
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
+  opacity: 0%;
+}
+.favs-override .card-img-overlay:hover {
+  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
+  opacity: 80%;
+}
+.favs-override .card-text {
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 70px;
+  left: 70px;
+  float: bottom;
+}
 .mv-override .card {
   transition: all 0.5s ease;
 }
@@ -118,93 +205,6 @@
   bottom: 30px;
   right: 30px;
   left: 30px;
-  float: bottom;
-}
-.pv-override .form-control {
-  background-color: #E5E5E5 !important;
-  color: #0F0F0F !important;
-  border-color: #353535 !important;
-}
-
-.pv-override .card-header {
-  background-color: #8E1616;
-  border-color: #620f0f;
-}
-
-.pv-override .card-footer {
-  background-color: #1b1b1b;
-}
-.flexnit {
-  color: pink;
-}
-.director-override .card:hover .card-text {
-  opacity: 100%;
-}
-.director-override .card-img-overlay {
-  transition: all 0.5s ease-in-out;
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
-  opacity: 0%;
-}
-.director-override .card-img-overlay:hover {
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
-  opacity: 80%;
-}
-.director-override .card-text {
-  opacity: 0;
-  transition: all 0.5s ease;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  left: 20px;
-  float: bottom;
-}
-.genre-override .card:hover .card-text {
-  opacity: 100%;
-}
-.genre-override .card-img-overlay {
-  transition: all 0.5s ease-in-out;
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
-  opacity: 0%;
-}
-.genre-override .card-img-overlay:hover {
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
-  opacity: 80%;
-}
-.genre-override .card-text {
-  opacity: 0;
-  transition: all 0.5s ease;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  left: 20px;
-  float: bottom;
-}
-.card-text {
-  max-height: 650px !important;
-  overflow: auto !important;
-}
-.flexnit {
-  color: pink;
-}
-.favs-override .card:hover .card-text {
-  opacity: 100%;
-}
-.favs-override .card-img-overlay {
-  transition: all 0.5s ease-in-out;
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%);
-  opacity: 0%;
-}
-.favs-override .card-img-overlay:hover {
-  background: linear-gradient(0deg, black 20%, rgba(255, 0, 0, 0) 100%) !important;
-  opacity: 80%;
-}
-.favs-override .card-text {
-  opacity: 0;
-  transition: all 0.5s ease;
-  position: absolute;
-  bottom: 20px;
-  right: 70px;
-  left: 70px;
   float: bottom;
 }
 /*# sourceMappingURL=index.caa67093.css.map */
