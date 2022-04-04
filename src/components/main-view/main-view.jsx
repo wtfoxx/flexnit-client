@@ -212,6 +212,8 @@ class MainView extends React.Component {
               <Route path="/users/*" element={<ProfileWrapper />} />
             
               <Route path="/users/:user/movies" element={<FavoritesWrapper />} />
+
+              <Route path="/users" element={<MainWrapper />} />
             </Routes>
 
           </Row>

@@ -22303,6 +22303,9 @@ class MainView extends _reactDefault.default.Component {
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
             path: "/users/:user/movies",
             element: /*#__PURE__*/ _reactDefault.default.createElement(FavoritesWrapper, null)
+        }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
+            path: "/users",
+            element: /*#__PURE__*/ _reactDefault.default.createElement(MainWrapper, null)
         })))));
     }
 }
