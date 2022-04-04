@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f2f499c4-3f99-4bc5-9c71-5a093a01a673/deploy-status)](https://app.netlify.com/sites/flexnit/deploys)
+
 ### Insctructions
 To test the project locally, please use `parcel src/index.html`
 
