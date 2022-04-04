@@ -5,7 +5,7 @@ import './registration-view.scss';
 import { Form, Button, Container, Row, Col, Card, CardGroup, FloatingLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
   return {
     user: state.user
   }
