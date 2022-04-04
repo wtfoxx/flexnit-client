@@ -111,7 +111,7 @@ class MainView extends React.Component {
 
     let MainWrapper = () => {
       if (!localUser) return (
-        <Col md={3}>
+        <Col md={3} sm={12} x-sm={12}>
           <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
         </Col>
       );
@@ -142,7 +142,7 @@ class MainView extends React.Component {
       if (movies.length === 0) return <div className="main-view" />;
 
       return (
-          <Col md="auto">
+          <Col>
             <MovieView  user={user} movies={movies.find(m => m._id === movieId)} onBackClick={() => history.back()} />
           </Col>
       );

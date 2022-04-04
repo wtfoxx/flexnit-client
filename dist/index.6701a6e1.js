@@ -22183,7 +22183,9 @@ class MainView extends _reactDefault.default.Component {
         let localUser = localStorage.getItem('user');
         let MainWrapper = ()=>{
             if (!localUser) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: 3
+                md: 3,
+                sm: 12,
+                "x-sm": 12
             }, /*#__PURE__*/ _reactDefault.default.createElement(_loginViewDefault.default, {
                 onLoggedIn: (user1)=>this.onLoggedIn(user1)
             })));
@@ -22208,9 +22210,7 @@ class MainView extends _reactDefault.default.Component {
             if (movies.length === 0) return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
                 className: "main-view"
             }));
-            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
-                md: "auto"
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_movieViewDefault.default, {
+            return(/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/ _reactDefault.default.createElement(_movieViewDefault.default, {
                 user: user,
                 movies: movies.find((m)=>m._id === movieId
                 ),
@@ -41615,8 +41615,6 @@ function MoviesList(props) {
         className: "justify-content-md-center"
     }, filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_reactBootstrap.Col, {
             lg: 4,
-            md: 6,
-            sm: "auto",
             key: m._id
         }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
             movie: m

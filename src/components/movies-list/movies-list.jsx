@@ -23,7 +23,7 @@ function MoviesList(props) {
   return <> 
     <Row className="justify-content-md-center">
       {filteredMovies.map(m => (
-        <Col lg={4} md={6} sm="auto" key={m._id}>
+        <Col lg={4} key={m._id}>
           <MovieCard movie={m} />
         </Col>
       ))}
