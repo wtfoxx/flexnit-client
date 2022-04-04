@@ -12,7 +12,7 @@ let mapStateToProps = (state) => {
 
 function Navigation({visibilityFilter}) {
 
-  user = localStorage.getItem('user');
+  let user = localStorage.getItem('user');
 
   const onLoggedOut = () => {
     localStorage.clear();
