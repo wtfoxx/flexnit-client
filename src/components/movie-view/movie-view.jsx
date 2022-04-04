@@ -114,7 +114,7 @@ class MovieView extends React.Component {
 
                 </Card.Subtitle>
 
-                <Card.Text>{movies.Description}</Card.Text>
+                <Card.Text className='card-text-bm'>{movies.Description}</Card.Text>
 
           
                 {' '}
